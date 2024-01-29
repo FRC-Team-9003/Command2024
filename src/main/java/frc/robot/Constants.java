@@ -140,7 +140,7 @@ public final class Constants {
  
  
   }
-  public static final class Climbers{
+  public static final class ClimbersConstants{
   public static final int NeoLeftClimber = 30;
   public static final int  NeoRightClimber = 31;
 }
@@ -150,7 +150,7 @@ public static final class Shooter{
   public static final int NeoTop = 41;
 }
 
-public static final class Intake{
+public static final class IntakeConstants{
   public static int Neo550Intake = 50;
   public static int NeoElbow = 51;
   public static int Neo550Wrist = 52;
