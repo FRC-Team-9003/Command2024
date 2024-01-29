@@ -145,7 +145,7 @@ public final class Constants {
   public static final int  NeoRightClimber = 31;
 }
 
-public static final class Shooter{
+public static final class ShooterConstants{
   public static final int NeoBottom = 40;
   public static final int NeoTop = 41;
 }
