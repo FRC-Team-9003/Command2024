@@ -84,6 +84,23 @@ public class Intake extends SubsystemBase {
      return elbowEncoder.getPosition();
   }
 
+  public boolean getWristFwd(){
+    return wristFwd.isPressed();
+
+  }
+
+  public boolean getWristRev(){
+    return wristRev.isPressed();
+
+  }
+  
+  public boolean getElbowFwd(){
+    return elbowFwd.isPressed();
+  }
+
+  public boolean getElbowRev(){
+    return elbowRev.isPressed();
+  }
 
      
 
