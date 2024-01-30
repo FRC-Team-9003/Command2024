@@ -21,13 +21,19 @@ public class Climbers extends SubsystemBase {
   @Override
   public void simulationPeriodic() {}
 
-  public void stop(){
+  public void stopLeftClimb(){
     leftclimb.stopMotor();
+  }
+
+  public void stopRightClimb(){
     rightclimb.stopMotor();
   }
 
-  public void setSpeed(double speed){
+  public void setSpeedLeftClimb(double speed){
     leftclimb.set(speed);
+  }
+
+  public void setSpeedRightClimb(double speed){
     rightclimb.set(speed);
   }
 }

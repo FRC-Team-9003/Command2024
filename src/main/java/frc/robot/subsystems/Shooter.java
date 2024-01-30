@@ -7,12 +7,12 @@ import frc.robot.Constants.ShooterConstants;
 
 public class Shooter extends SubsystemBase {
 
-  private CANSparkMax shoota;
-  private CANSparkMax shootb;
+  private CANSparkMax shootA;
+  private CANSparkMax shootB;
 
   public Shooter() {
-    shoota = new CANSparkMax(ShooterConstants.NeoBottom, MotorType.kBrushless);
-    shootb = new CANSparkMax(ShooterConstants.NeoTop, MotorType.kBrushless);
+    shootA = new CANSparkMax(ShooterConstants.NeoBottom, MotorType.kBrushless);
+    shootB = new CANSparkMax(ShooterConstants.NeoTop, MotorType.kBrushless);
   }
 
   @Override
@@ -21,13 +21,19 @@ public class Shooter extends SubsystemBase {
   @Override
   public void simulationPeriodic() {}
 
-  public void stop(){
-    shoota.stopMotor();
-    shootb.stopMotor();
+  public void stopShootA(){
+    shootA.stopMotor();
   }
 
-  public void setSpeed(double speed){
-    shoota.set(speed);
-    shootb.set(speed);
+  public void stopShootB(){
+    shootB.stopMotor();
+  }
+
+  public void setSpeedShootA(double speed){
+    shootA.set(speed);
+  }
+
+  public void setSpeedShootB(double speed){
+    shootB.set(speed);
   }
 }
