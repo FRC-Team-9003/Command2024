@@ -7,12 +7,12 @@ import frc.robot.Constants.IntakeConstants;
 
 public class Intake extends SubsystemBase {
 
-  private CANSparkMax take;
+  private CANSparkMax intake;
   private CANSparkMax elbow;
   private CANSparkMax wrist;
 
   public Intake() {
-    take = new CANSparkMax(IntakeConstants.Neo550Intake, MotorType.kBrushless);
+    intake = new CANSparkMax(IntakeConstants.Neo550Intake, MotorType.kBrushless);
 
     elbow = new CANSparkMax(IntakeConstants.NeoElbow, MotorType.kBrushless);
 
