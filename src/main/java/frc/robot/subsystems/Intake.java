@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkLowLevel.MotorType;
+import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IntakeConstants;
@@ -10,6 +11,9 @@ public class Intake extends SubsystemBase {
   private CANSparkMax intake;
   private CANSparkMax elbow;
   private CANSparkMax wrist;
+  private AbsoluteEncoder wristEncoder;
+  private AbsoluteEncoder elbowEncoder;
+
 
   public Intake() {
     intake = new CANSparkMax(IntakeConstants.Neo550Intake, MotorType.kBrushless);
@@ -24,4 +28,16 @@ public class Intake extends SubsystemBase {
 
   @Override
   public void simulationPeriodic() {}
+
+  public void stop(){
+    intake.stopMotor();
+    wrist.stopMotor();
+    elbow.stopMotor();
+  }
+
+  public void setSpeed(double speed){
+    intake.set(speed);
+    wrist.set(speed);
+    elbow.set(speed);
+  }
 }
