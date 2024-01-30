@@ -10,7 +10,6 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
-
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
  * numerical or boolean
@@ -138,5 +137,27 @@ public final class Constants {
 
   public static final class NeoMotorConstants {
     public static final double kFreeSpeedRpm = 5676;
+ 
+ 
   }
+  public static final class ClimbersConstants{
+  public static final int NeoLeftClimber = 30;
+  public static final int  NeoRightClimber = 31;
+}
+
+public static final class ShooterConstants{
+  public static final int NeoBottom = 40;
+  public static final int NeoTop = 41;
+}
+
+public static final class IntakeConstants{
+  public static int Neo550Intake = 50;
+  public static int NeoElbow = 51;
+  public static int Neo550Wrist = 52;
+}
+
+public static final class ElevatorConstants{
+  public static final int kElevatorCanID= 20;
+}
+
 }
