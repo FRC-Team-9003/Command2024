@@ -41,4 +41,12 @@ public class Elevator extends SubsystemBase {
   public double getElevEncoder(){
     return elevEncoder.getPosition();
   }
+
+  public boolean getElevFwd(){
+    return elevFwd.isPressed();
+  }
+
+  public boolean getElevRev(){
+    return elevRev.isPressed();
+  }
 }
