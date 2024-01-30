@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.SparkAbsoluteEncoder;
 import com.revrobotics.SparkAbsoluteEncoder.Type;
 import com.revrobotics.SparkLimitSwitch;
 
@@ -14,15 +15,14 @@ public class Intake extends SubsystemBase {
   private CANSparkMax intake;
   private CANSparkMax elbow;
   private CANSparkMax wrist;
-  private AbsoluteEncoder wristEncoder;
-  private AbsoluteEncoder elbowEncoder;
+  private SparkAbsoluteEncoder wristEncoder;
+  private SparkAbsoluteEncoder elbowEncoder;
   private SparkLimitSwitch wristFwd;
   private SparkLimitSwitch wristRev;
   private SparkLimitSwitch elbowFwd;
   private SparkLimitSwitch elbowRev;
 
-
-  }
+  
   
 
   
@@ -46,7 +46,6 @@ public class Intake extends SubsystemBase {
 
     elbowFwd= elbow.getReverseLimitSwitch(SparkLimitSwitch.Type.kNormallyClosed);
     elbowRev = elbow.getReverseLimitSwitch(SparkLimitSwitch.Type.kNormallyClosed);
-  }
   }
 
   @Override
@@ -76,4 +75,19 @@ public class Intake extends SubsystemBase {
   public void setSpeedElbow(double speed){
     elbow.set(speed);
   }
-}
+  public double getWristEncoder(){
+    return wristEncoder.getPosition();
+  }
+   
+
+  public double getElbowEncoder(){
+     return elbowEncoder.getPosition();
+  }
+
+
+     
+
+
+  }
+
+  
