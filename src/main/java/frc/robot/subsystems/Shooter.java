@@ -20,4 +20,14 @@ public class Shooter extends SubsystemBase {
 
   @Override
   public void simulationPeriodic() {}
+
+  public void stop(){
+    shoota.stopMotor();
+    shootb.stopMotor();
+  }
+
+  public void setSpeed(double speed){
+    shoota.set(speed);
+    shootb.set(speed);
+  }
 }
