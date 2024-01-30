@@ -25,7 +25,7 @@ public class Intake extends SubsystemBase {
     wrist = new CANSparkMax(IntakeConstants.Neo550Wrist, MotorType.kBrushless);
 
     wristEncoder = wrist.getAbsoluteEncoder(Type.kDutyCycle);
-    
+
     elbowEncoder = elbow.getAbsoluteEncoder(Type.kDutyCycle); 
   }
 
@@ -35,15 +35,25 @@ public class Intake extends SubsystemBase {
   @Override
   public void simulationPeriodic() {}
 
-  public void stop(){
+  public void stopIntake(){
     intake.stopMotor();
-    wrist.stopMotor();
-    elbow.stopMotor();
+    
+  
   }
-
-  public void setSpeed(double speed){
+  public void stopWrist(){
+    wrist.stopMotor();  
+}
+  public void stopElbow(){
+    elbow.stopMotor();
+}
+  public void setSpeedIntake(double speed){
     intake.set(speed);
+    
+  }
+  public void setSpeedWrist(double speed){
     wrist.set(speed);
+  }
+  public void setSpeedElbow(double speed){
     elbow.set(speed);
   }
 }
