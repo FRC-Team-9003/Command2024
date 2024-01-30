@@ -18,4 +18,12 @@ public class Elevator extends SubsystemBase {
 
   @Override
   public void simulationPeriodic() {}
+
+  public void stop(){
+    elev.stopMotor();
+  }
+
+  public void setSpeed(double speed){
+    elev.set(speed);
+  }
 }
