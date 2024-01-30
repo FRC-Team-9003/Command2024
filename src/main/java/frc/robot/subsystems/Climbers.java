@@ -1,32 +1,23 @@
 package frc.robot.subsystems;
 
-import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
-
+import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.ClimbersConstants;;
+import frc.robot.Constants.ClimbersConstants;
 
-public class Climbers extends SubsystemBase{
+public class Climbers extends SubsystemBase {
 
-    private CANSparkMax leftclimb;
-    private CANSparkMax rightclimb;
+  private CANSparkMax leftclimb;
+  private CANSparkMax rightclimb;
 
-    public Climbers(){
-        leftclimb = new CANSparkMax(ClimbersConstants.NeoLeftClimber, MotorType.kBrushless);
-        rightclimb = new CANSparkMax(ClimbersConstants.NeoRightClimber, MotorType.kBrushless);
-    }
+  public Climbers() {
+    leftclimb = new CANSparkMax(ClimbersConstants.NeoLeftClimber, MotorType.kBrushless);
+    rightclimb = new CANSparkMax(ClimbersConstants.NeoRightClimber, MotorType.kBrushless);
+  }
 
-    
+  @Override
+  public void periodic() {}
 
-
-
-    @Override
-    public void periodic(){
-
-    }
-
-
-    @Override public void simulationPeriodic(){
-        
-    }
+  @Override
+  public void simulationPeriodic() {}
 }
