@@ -13,7 +13,7 @@ import frc.robot.Constants.ElevatorConstants;
 public class Elevator extends SubsystemBase {
 
   private CANSparkMax elev;
-  private AbsoluteEncoder elevEncoder;
+  private SparkAbsoluteEncoder elevEncoder;
   private SparkLimitSwitch elevFwd;
   private SparkLimitSwitch elevRev;
 
@@ -36,5 +36,9 @@ public class Elevator extends SubsystemBase {
 
   public void setSpeed(double speed){
     elev.set(speed);
+  }
+  
+  public double getElevEncoder(){
+    return elevEncoder.getPosition();
   }
 }
