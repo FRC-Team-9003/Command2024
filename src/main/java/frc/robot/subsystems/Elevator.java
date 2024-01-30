@@ -5,6 +5,7 @@ import com.revrobotics.SparkAbsoluteEncoder.Type;
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkAbsoluteEncoder;
+import com.revrobotics.SparkLimitSwitch;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ElevatorConstants;
@@ -13,9 +14,14 @@ public class Elevator extends SubsystemBase {
 
   private CANSparkMax elev;
   private AbsoluteEncoder elevEncoder;
+  private SparkLimitSwitch elevFwd;
+  private SparkLimitSwitch elevRev;
+
   public Elevator() {
     elev = new CANSparkMax(ElevatorConstants.kElevatorCanID, MotorType.kBrushless);
     elevEncoder = elev.getAbsoluteEncoder(Type.kDutyCycle);
+    elevFwd = elev.getForwardLimitSwitch(SparkLimitSwitch.Type.kNormallyClosed);
+    elevRev = elev.getReverseLimitSwitch(SparkLimitSwitch.Type.kNormallyClosed);
   }
 
   @Override
