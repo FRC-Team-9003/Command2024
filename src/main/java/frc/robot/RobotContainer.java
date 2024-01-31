@@ -38,13 +38,13 @@ public class RobotContainer {
 
   // The driver's controller
   CommandJoystick m_stickDrive = new CommandJoystick(OIConstants.kDriverControllerPort);
-  CommandXboxController m_driverController =
-      new CommandXboxController(OIConstants.kDriverControllerPort + 1);
+  CommandXboxController m_debugController =
+      new CommandXboxController(OIConstants.kDebugControllerPort);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
-    configureButtonBindings();
+    configureDebugBindings();
 
     // Configure default commands
     m_robotDrive.setDefaultCommand(
@@ -70,7 +70,10 @@ public class RobotContainer {
    * {@link JoystickButton}.
    */
   private void configureButtonBindings() {
-    final Trigger x = m_driverController.x();
+
+  }
+  private void configureDebugBindings() {
+    final Trigger x = m_debugController.x();
     x.onTrue(new RunCommand(() -> m_robotDrive.setX(), m_robotDrive));
 
     x.onFalse(new RunCommand(() -> m_robotDrive.setNormal(), m_robotDrive));
