@@ -23,7 +23,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
-import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.*;
 import java.util.List;
 
 /*
@@ -35,6 +35,8 @@ import java.util.List;
 public class RobotContainer {
   // The robot's subsystems
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
+  private final Elevator m_robotElevator = new Elevator();
+  private final Intake m_robotIntake = new Intake();
   // Create Elevator subsystem
   // Create Intake subsystem
     private final Shooter m_robotShoot = new Shooter();
