@@ -35,6 +35,10 @@ import java.util.List;
 public class RobotContainer {
   // The robot's subsystems
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
+  // Create Elevator subsystem
+  // Create Intake subsystem
+  // Create Shooter subsystem
+  // Create Climbers subsystem
 
   // The driver's controller
   CommandJoystick m_stickDrive = new CommandJoystick(OIConstants.kDriverControllerPort);
@@ -63,6 +67,8 @@ public class RobotContainer {
             m_robotDrive));
   }
 
+  // Set Default command for climbers. The sticks should be associated to each climber so they work independently.
+
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
    * instantiating a {@link edu.wpi.first.wpilibj.GenericHID} or one of its subclasses ({@link
@@ -72,10 +78,24 @@ public class RobotContainer {
   private void configureButtonBindings() {}
 
   private void configureDebugBindings() {
+
+    /*
+     * X - Wheels in X configuration
+     * Y - 
+     * A - Intake In
+     * B - Intake Out
+     * DPad - "Arm" and "Wrist"
+     * Left Bumper - Shoot
+     * Right Bumper - Take-In note
+     */
+
     final Trigger x = m_debugController.x();
     x.onTrue(new RunCommand(() -> m_robotDrive.setX(), m_robotDrive));
 
     x.onFalse(new RunCommand(() -> m_robotDrive.setNormal(), m_robotDrive));
+
+    // Limit Switch Bindings - limit switch is hit respective motor should be stopped.
+
   }
 
   /**
