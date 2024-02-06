@@ -67,7 +67,8 @@ public class RobotContainer {
             m_robotDrive));
   }
 
-  // Set Default command for climbers. The sticks should be associated to each climber so they work independently.
+  // Set Default command for climbers. The sticks should be associated to each climber so they work
+  // independently.
 
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
@@ -81,7 +82,7 @@ public class RobotContainer {
 
     /*
      * X - Wheels in X configuration
-     * Y - 
+     * Y -
      * A - Intake In
      * B - Intake Out
      * DPad - "Arm" and "Wrist"
@@ -91,7 +92,6 @@ public class RobotContainer {
 
     final Trigger x = m_debugController.x();
     x.onTrue(new RunCommand(() -> m_robotDrive.setX(), m_robotDrive));
-
     x.onFalse(new RunCommand(() -> m_robotDrive.setNormal(), m_robotDrive));
 
     // Limit Switch Bindings - limit switch is hit respective motor should be stopped.
