@@ -37,6 +37,8 @@ public class RobotContainer {
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
   // Create Elevator subsystem
   // Create Intake subsystem
+    private final Shooter m_robotShoot = new Shooter();
+    private final Climbers m_robotClimb = new Clibers();
   // Create Shooter subsystem
   // Create Climbers subsystem
 
