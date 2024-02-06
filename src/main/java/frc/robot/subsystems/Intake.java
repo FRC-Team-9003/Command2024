@@ -36,6 +36,8 @@ public class Intake extends SubsystemBase {
 
     elbowFwd = elbow.getReverseLimitSwitch(SparkLimitSwitch.Type.kNormallyClosed);
     elbowRev = elbow.getReverseLimitSwitch(SparkLimitSwitch.Type.kNormallyClosed);
+
+    //Add limit switch for intake. We don't know if it will be forward or reverse yet.
   }
 
   @Override
