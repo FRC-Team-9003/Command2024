@@ -69,11 +69,13 @@ public class RobotContainer {
                     true,
                     true),
             m_robotDrive));
-  }
-  m_robotElevator.setDefaultCommand(
+
+    m_robotElevator.setDefaultCommand(
     new RunCommand(
         () -> 
         m_robotElevator.setSpeed(m_debugController.getLeftY()),m_robotElevator));
+  }
+  
   
   // Set Default command for climbers. The sticks should be associated to each climber so they work
   // independently.
