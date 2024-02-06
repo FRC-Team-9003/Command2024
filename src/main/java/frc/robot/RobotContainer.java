@@ -70,7 +70,11 @@ public class RobotContainer {
                     true),
             m_robotDrive));
   }
-
+  m_robotElevator.setDefaultCommand(
+    new RunCommand(
+        () -> 
+        m_robotElevator.setSpeed(m_debugController.getLeftY()),m_robotElevator));
+  
   // Set Default command for climbers. The sticks should be associated to each climber so they work
   // independently.
 
@@ -89,7 +93,7 @@ public class RobotContainer {
      * Y -
      * A - Intake In
      * B - Intake Out
-     * DPad - "Arm" and "Wrist"
+     * DPad - "Elbow" and "Wrist"
      * Left Bumper - Shoot
      * Right Bumper - Take-In note
      */
@@ -97,6 +101,24 @@ public class RobotContainer {
     final Trigger x = m_debugController.x();
     x.onTrue(new RunCommand(() -> m_robotDrive.setX(), m_robotDrive));
     x.onFalse(new RunCommand(() -> m_robotDrive.setNormal(), m_robotDrive));
+   
+    final Trigger povRight = m_debugController.povRight();
+    povRight.onTrue(new RunCommand(() -> m_robotIntake.setSpeedElbow(.15), m_robotIntake));
+    povRight.onFalse(new RunCommand(() -> m_robotIntake.setSpeedElbow(0), m_robotIntake));
+    
+    final Trigger povLeft = m_debugController.povLeft();
+   povLeft.onTrue(new RunCommand(() -> m_robotIntake.setSpeedElbow(-.15), m_robotIntake));
+    povLeft.onFalse(new RunCommand(() -> m_robotIntake.setSpeedElbow(0), m_robotIntake));
+    
+    final Trigger povUp = m_debugController.povUp();
+    povUp.onTrue(new RunCommand(() -> m_robotIntake.setSpeedWrist(.15), m_robotIntake));
+    povUp.onFalse(new RunCommand(() -> m_robotIntake.setSpeedWrist(0), m_robotIntake));
+   
+    final Trigger povDown = m_debugController.povDown();
+    povDown.onTrue(new RunCommand(() -> m_robotIntake.setSpeedWrist(-.15), m_robotIntake));
+    povDown.onFalse(new RunCommand(() -> m_robotIntake.setSpeedWrist(0), m_robotIntake));
+
+
 
     // Limit Switch Bindings - limit switch is hit respective motor should be stopped.
 
