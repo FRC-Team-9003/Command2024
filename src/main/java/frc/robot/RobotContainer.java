@@ -40,7 +40,7 @@ public class RobotContainer {
   // Create Elevator subsystem
   // Create Intake subsystem
     private final Shooter m_robotShoot = new Shooter();
-    private final Climbers m_robotClimb = new Clibers();
+    private final Climbers m_robotClimb = new Climbers();
   // Create Shooter subsystem
   // Create Climbers subsystem
 
