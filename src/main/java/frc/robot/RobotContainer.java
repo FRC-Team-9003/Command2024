@@ -122,6 +122,7 @@ public class RobotContainer {
     b.onTrue(new RunCommand(() -> m_robotIntake.setSpeedIntake(-0.5), m_robotIntake));
     b.onFalse(new RunCommand(() -> m_robotIntake.setSpeedIntake(0.0), m_robotIntake));
 
+    // Need to change so that both motors are running for both Left and Right bumper
     final Trigger LeftBumper = m_debugController.leftBumper();
     LeftBumper.onTrue(new RunCommand(() -> m_robotShoot.setSpeedShootA(0.9), m_robotShoot));
     LeftBumper.onFalse(new RunCommand(() -> m_robotShoot.setSpeedShootA(0), m_robotShoot));
