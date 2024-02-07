@@ -66,25 +66,10 @@ public class RobotContainer {
                     true),
             m_robotDrive));
 
-    
-
-    m_robotIntake.setDefaultCommand(
-      new RunCommand(() -> {
-        m_robotIntake.setSpeedElbow(m_debugController.getLeftY());
-        m_robotIntake.setSpeedWrist(m_debugController.getRightY());
-      }
-        , m_robotIntake)
-      );
-      
-
-
-/*     m_robotClimb.setDefaultCommand(
-      new RunCommand(() -> m_robotClimb.setSpeedLeftClimb(m_debugController.))
-    );
-
-    m_robotClimb.setDefaultCommand(
-      new RunCommand(() -> m_robotClimb.setSpeedRightClimb(m_debugController.))); */
-  }  
+    m_robotElevator.setDefaultCommand(
+        new RunCommand(
+            () -> m_robotElevator.setSpeed(m_debugController.getLeftY()), m_robotElevator));
+  }
 
   // Set Default command for climbers. The sticks should be associated to each climber so they work
   // independently.
@@ -113,13 +98,21 @@ public class RobotContainer {
     x.onTrue(new RunCommand(() -> m_robotDrive.setX(), m_robotDrive));
     x.onFalse(new RunCommand(() -> m_robotDrive.setNormal(), m_robotDrive));
 
+    final Trigger povRight = m_debugController.povRight();
+    povRight.onTrue(new RunCommand(() -> m_robotIntake.setSpeedElbow(.15), m_robotIntake));
+    povRight.onFalse(new RunCommand(() -> m_robotIntake.setSpeedElbow(0), m_robotIntake));
+
+    final Trigger povLeft = m_debugController.povLeft();
+    povLeft.onTrue(new RunCommand(() -> m_robotIntake.setSpeedElbow(-.15), m_robotIntake));
+    povLeft.onFalse(new RunCommand(() -> m_robotIntake.setSpeedElbow(0), m_robotIntake));
+
     final Trigger povUp = m_debugController.povUp();
     povUp.onTrue(new RunCommand(() -> m_robotElevator.setSpeed(.15), m_robotElevator));
     povUp.onFalse(new RunCommand(() -> m_robotElevator.setSpeed(0), m_robotElevator));
 
     final Trigger povDown = m_debugController.povDown();
-    povDown.onTrue(new RunCommand(() -> m_robotElevator.setSpeed(-.15), m_robotIntake));
-    povDown.onFalse(new RunCommand(() -> m_robotElevator.setSpeed(0), m_robotIntake));
+    povDown.onTrue(new RunCommand(() -> m_robotElevator.setSpeed(-.15), m_robotElevator));
+    povDown.onFalse(new RunCommand(() -> m_robotElevator.setSpeed(0), m_robotElevator));
 
     final Trigger a = m_debugController.a();
     a.onTrue(new RunCommand(() -> m_robotIntake.setSpeedIntake(0.5), m_robotIntake));
