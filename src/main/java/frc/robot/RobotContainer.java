@@ -37,12 +37,8 @@ public class RobotContainer {
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
   private final Elevator m_robotElevator = new Elevator();
   private final Intake m_robotIntake = new Intake();
-  // Create Elevator subsystem
-  // Create Intake subsystem
-    private final Shooter m_robotShoot = new Shooter();
-    private final Climbers m_robotClimb = new Climbers();
-  // Create Shooter subsystem
-  // Create Climbers subsystem
+  private final Shooter m_robotShoot = new Shooter();
+  private final Climbers m_robotClimb = new Climbers();
 
   // The driver's controller
   CommandJoystick m_stickDrive = new CommandJoystick(OIConstants.kDriverControllerPort);
@@ -71,12 +67,10 @@ public class RobotContainer {
             m_robotDrive));
 
     m_robotElevator.setDefaultCommand(
-    new RunCommand(
-        () -> 
-        m_robotElevator.setSpeed(m_debugController.getLeftY()),m_robotElevator));
+        new RunCommand(
+            () -> m_robotElevator.setSpeed(m_debugController.getLeftY()), m_robotElevator));
   }
-  
-  
+
   // Set Default command for climbers. The sticks should be associated to each climber so they work
   // independently.
 
@@ -103,43 +97,40 @@ public class RobotContainer {
     final Trigger x = m_debugController.x();
     x.onTrue(new RunCommand(() -> m_robotDrive.setX(), m_robotDrive));
     x.onFalse(new RunCommand(() -> m_robotDrive.setNormal(), m_robotDrive));
-   
+
     final Trigger povRight = m_debugController.povRight();
     povRight.onTrue(new RunCommand(() -> m_robotIntake.setSpeedElbow(.15), m_robotIntake));
     povRight.onFalse(new RunCommand(() -> m_robotIntake.setSpeedElbow(0), m_robotIntake));
-    
+
     final Trigger povLeft = m_debugController.povLeft();
-   povLeft.onTrue(new RunCommand(() -> m_robotIntake.setSpeedElbow(-.15), m_robotIntake));
+    povLeft.onTrue(new RunCommand(() -> m_robotIntake.setSpeedElbow(-.15), m_robotIntake));
     povLeft.onFalse(new RunCommand(() -> m_robotIntake.setSpeedElbow(0), m_robotIntake));
-    
+
     final Trigger povUp = m_debugController.povUp();
     povUp.onTrue(new RunCommand(() -> m_robotIntake.setSpeedWrist(.15), m_robotIntake));
     povUp.onFalse(new RunCommand(() -> m_robotIntake.setSpeedWrist(0), m_robotIntake));
-   
+
     final Trigger povDown = m_debugController.povDown();
     povDown.onTrue(new RunCommand(() -> m_robotIntake.setSpeedWrist(-.15), m_robotIntake));
     povDown.onFalse(new RunCommand(() -> m_robotIntake.setSpeedWrist(0), m_robotIntake));
 
-
-
     final Trigger a = m_debugController.a();
-    a.onTrue(new RunCommand(()-> m_robotIntake.setSpeedIntake(0.5), m_robotIntake));
-    a.onFalse(new RunCommand(()-> m_robotIntake.setSpeedIntake(0.0), m_robotIntake));
+    a.onTrue(new RunCommand(() -> m_robotIntake.setSpeedIntake(0.5), m_robotIntake));
+    a.onFalse(new RunCommand(() -> m_robotIntake.setSpeedIntake(0.0), m_robotIntake));
 
     final Trigger b = m_debugController.b();
-    b.onTrue(new RunCommand(()-> m_robotIntake.setSpeedIntake(-0.5), m_robotIntake));
-    b.onFalse(new RunCommand(()-> m_robotIntake.setSpeedIntake(0.0), m_robotIntake));
+    b.onTrue(new RunCommand(() -> m_robotIntake.setSpeedIntake(-0.5), m_robotIntake));
+    b.onFalse(new RunCommand(() -> m_robotIntake.setSpeedIntake(0.0), m_robotIntake));
 
     final Trigger LeftBumper = m_debugController.leftBumper();
-    LeftBumper.onTrue(new RunCommand(()-> m_robotShoot.setSpeedShootA(0.9), m_robotShoot));
-    LeftBumper.onFalse(new RunCommand(()-> m_robotShoot.setSpeedShootA(0), m_robotShoot));
+    LeftBumper.onTrue(new RunCommand(() -> m_robotShoot.setSpeedShootA(0.9), m_robotShoot));
+    LeftBumper.onFalse(new RunCommand(() -> m_robotShoot.setSpeedShootA(0), m_robotShoot));
 
     final Trigger RightBumper = m_debugController.rightBumper();
-    RightBumper.onTrue(new RunCommand(()-> m_robotShoot.setSpeedShootB(-0.9), m_robotShoot));
-    RightBumper.onFalse(new RunCommand(()-> m_robotShoot.setSpeedShootB(0.0), m_robotShoot));
+    RightBumper.onTrue(new RunCommand(() -> m_robotShoot.setSpeedShootB(-0.9), m_robotShoot));
+    RightBumper.onFalse(new RunCommand(() -> m_robotShoot.setSpeedShootB(0.0), m_robotShoot));
 
-
-    // Limit Switch Bindings - limit switch is hit respective motor should be stopped.
+    // Limit Switch Binding - Note in intake invokes fold-up command
 
   }
 
