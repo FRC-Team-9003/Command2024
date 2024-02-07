@@ -66,18 +66,17 @@ public class RobotContainer {
                     true),
             m_robotDrive));
 
-    m_robotElevator.setDefaultCommand(
-        new RunCommand(
-            () -> m_robotElevator.setSpeed(m_debugController.getLeftY()), m_robotElevator));
+    
 
     m_robotIntake.setDefaultCommand(
-      new RunCommand(() -> 
-        m_robotIntake.setSpeedElbow(m_debugController.getLeftY()), m_robotIntake)
+      new RunCommand(() -> {
+        m_robotIntake.setSpeedElbow(m_debugController.getLeftY());
+        m_robotIntake.setSpeedWrist(m_debugController.getRightY());
+      }
+        , m_robotIntake)
       );
       
 
-    m_robotIntake.setDefaultCommand(
-     new RunCommand(() -> m_robotIntake.setSpeedWrist(m_debugController.getRightY()), m_robotIntake));
 
 /*     m_robotClimb.setDefaultCommand(
       new RunCommand(() -> m_robotClimb.setSpeedLeftClimb(m_debugController.))
