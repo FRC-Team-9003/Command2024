@@ -96,9 +96,11 @@ public class RobotContainer {
      * Y -
      * A - Intake In
      * B - Intake Out
-     * DPad - "Elbow" and "Wrist"
+     * DPad - Elevator
      * Left Bumper - Shoot
      * Right Bumper - Take-In note
+     * Left Y - Elbow
+     * Right Y - Wrist
      */
 
     final Trigger x = m_debugController.x();
