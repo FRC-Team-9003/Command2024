@@ -8,8 +8,9 @@ public class Fold extends ParallelCommandGroup {
   private final Elevator m_elevator;
 
   public Fold(Elevator subsystem_E, Intake subsystem_I) {
-    m_intake = subsystem_I;
+    
     m_elevator = subsystem_E;
+    m_intake = subsystem_I;
 
     addRequirements(m_intake, m_elevator);
 
