@@ -107,12 +107,12 @@ public class RobotContainer {
     povLeft.onFalse(new RunCommand(() -> m_robotIntake.setSpeedElbow(0), m_robotIntake));
 
     final Trigger povUp = m_debugController.povUp();
-    povUp.onTrue(new RunCommand(() -> m_robotIntake.setSpeedWrist(.15), m_robotIntake));
-    povUp.onFalse(new RunCommand(() -> m_robotIntake.setSpeedWrist(0), m_robotIntake));
+    povUp.onTrue(new RunCommand(() -> m_robotElevator.setSpeed(.15), m_robotElevator));
+    povUp.onFalse(new RunCommand(() -> m_robotElevator.setSpeed(0), m_robotElevator));
 
     final Trigger povDown = m_debugController.povDown();
-    povDown.onTrue(new RunCommand(() -> m_robotIntake.setSpeedWrist(-.15), m_robotIntake));
-    povDown.onFalse(new RunCommand(() -> m_robotIntake.setSpeedWrist(0), m_robotIntake));
+    povDown.onTrue(new RunCommand(() -> m_robotElevator.setSpeed(-.15), m_robotIntake));
+    povDown.onFalse(new RunCommand(() -> m_robotElevator.setSpeed(0), m_robotIntake));
 
     final Trigger a = m_debugController.a();
     a.onTrue(new RunCommand(() -> m_robotIntake.setSpeedIntake(0.5), m_robotIntake));
@@ -125,11 +125,16 @@ public class RobotContainer {
     // Need to change so that both motors are running for both Left and Right bumper
     final Trigger LeftBumper = m_debugController.leftBumper();
     LeftBumper.onTrue(new RunCommand(() -> m_robotShoot.setSpeedShootA(0.9), m_robotShoot));
-    LeftBumper.onFalse(new RunCommand(() -> m_robotShoot.setSpeedShootA(0), m_robotShoot));
+    LeftBumper.onFalse(new RunCommand(() -> m_robotShoot.setSpeedShootA(0.0), m_robotShoot));
+    LeftBumper.onTrue(new RunCommand(()->m_robotShoot.setSpeedShootB (0.9), m_robotIntake));
+    LeftBumper.onFalse(new RunCommand(()->m_robotShoot.setSpeedShootB (0.0), m_robotIntake));
 
     final Trigger RightBumper = m_debugController.rightBumper();
+     RightBumper.onTrue(new RunCommand(() -> m_robotShoot.setSpeedShootA(-0.9), m_robotShoot));
+    RightBumper.onFalse(new RunCommand(() -> m_robotShoot.setSpeedShootA(0.0), m_robotShoot));
     RightBumper.onTrue(new RunCommand(() -> m_robotShoot.setSpeedShootB(-0.9), m_robotShoot));
     RightBumper.onFalse(new RunCommand(() -> m_robotShoot.setSpeedShootB(0.0), m_robotShoot));
+   
 
     // Limit Switch Binding - Note in intake invokes fold-up command
 
