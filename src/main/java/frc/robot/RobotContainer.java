@@ -24,6 +24,7 @@ import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.subsystems.*;
+import frc.robot.commands.*;
 import java.util.List;
 
 /*
@@ -145,6 +146,8 @@ public class RobotContainer {
 
     // Limit Switch Binding - Note in intake invokes fold-up command
 
+    final Trigger noteTrigger = new Trigger(m_robotShoot::isNote);
+    noteTrigger.onTrue(new RunCommand(() -> new Fold()));
   }
 
   /**

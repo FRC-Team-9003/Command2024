@@ -37,4 +37,8 @@ public class Shooter extends SubsystemBase {
   public void setSpeedShootB(double speed) {
     shootB.set(speed);
   }
+
+  public boolean isNote(){
+    return noteswitch.get();
+  }
 }
