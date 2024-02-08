@@ -1,8 +1,8 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Elevator;
 import frc.robot.Constants.ElevatorConstants;
+import frc.robot.subsystems.Elevator;
 
 public class ElevMin extends Command {
   private final Elevator m_Elevator;
@@ -27,7 +27,7 @@ public class ElevMin extends Command {
 
   @Override
   public boolean isFinished() {
-   return m_Elevator.getElevFwd();
+    return m_Elevator.getElevFwd();
   }
 
   @Override
