@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.*;
 import frc.robot.commands.*;
@@ -35,6 +36,10 @@ public class RobotContainer {
   CommandJoystick m_stickDrive = new CommandJoystick(OIConstants.kDriverControllerPort);
   CommandXboxController m_debugController =
       new CommandXboxController(OIConstants.kDebugControllerPort);
+  
+  POVButton m_redButton = new POVButton(OIConstants.kMechanismBoxRedPort);
+  POVButton m_blueButton = new POVButton(OIConstants.kMechanismBoxBluePort);
+
 
   // A chooser for autonomous commands
   SendableChooser<Command> m_autoChooser = new SendableChooser<>();
