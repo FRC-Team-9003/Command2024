@@ -153,12 +153,17 @@ public final class Constants {
   public static final class ShooterConstants {
     public static final int NeoBottom = 40;
     public static final int NeoTop = 41;
+    public static final double defaultSpeedBottom = 0.9;
+    public static final double defaultSpeedTop = 0.95;
   }
 
   public static final class IntakeConstants {
     public static int Neo550Intake = 50;
     public static int NeoElbow = 51;
     public static int Neo550Wrist = 52;
+    public static final double defaultSpeedIntake = 0.8;
+    public static final double defaultSpeedElbow = 0.25 - 0.3;
+    public static final double defaultSpeedWrist = 0.12;
   }
 
   public static final class ElevatorConstants {
