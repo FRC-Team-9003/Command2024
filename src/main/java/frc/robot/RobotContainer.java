@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.Constants.OIConstants;
+import frc.robot.Constants.*;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 
@@ -105,27 +105,36 @@ public class RobotContainer {
     x.onFalse(new RunCommand(() -> m_robotDrive.setNormal(), m_robotDrive));
 
     final Trigger povUp = m_debugController.povUp();
-    povUp.onTrue(new RunCommand(() -> m_robotElevator.setSpeed(.15), m_robotElevator));
+    povUp.onTrue(
+        new RunCommand(
+            () -> m_robotElevator.setSpeed(-ElevatorConstants.defaultSpeed), m_robotElevator));
     povUp.onFalse(new RunCommand(() -> m_robotElevator.setSpeed(0), m_robotElevator));
 
     final Trigger povDown = m_debugController.povDown();
-    povDown.onTrue(new RunCommand(() -> m_robotElevator.setSpeed(-.15), m_robotElevator));
+    povDown.onTrue(
+        new RunCommand(
+            () -> m_robotElevator.setSpeed(ElevatorConstants.defaultSpeed), m_robotElevator));
     povDown.onFalse(new RunCommand(() -> m_robotElevator.setSpeed(0), m_robotElevator));
 
     final Trigger a = m_debugController.a();
-    a.onTrue(new RunCommand(() -> m_robotIntake.setSpeedIntake(0.5), m_robotIntake));
+    a.onTrue(
+        new RunCommand(
+            () -> m_robotIntake.setSpeedIntake(-IntakeConstants.defaultSpeedIntake),
+            m_robotIntake));
     a.onFalse(new RunCommand(() -> m_robotIntake.setSpeedIntake(0.0), m_robotIntake));
 
     final Trigger b = m_debugController.b();
-    b.onTrue(new RunCommand(() -> m_robotIntake.setSpeedIntake(-0.5), m_robotIntake));
+    b.onTrue(
+        new RunCommand(
+            () -> m_robotIntake.setSpeedIntake(IntakeConstants.defaultSpeedIntake), m_robotIntake));
     b.onFalse(new RunCommand(() -> m_robotIntake.setSpeedIntake(0.0), m_robotIntake));
 
     final Trigger LeftBumper = m_debugController.leftBumper();
     LeftBumper.onTrue(
         new RunCommand(
             () -> {
-              m_robotShoot.setSpeedShootA(0.9);
-              m_robotShoot.setSpeedShootB(0.9);
+              m_robotShoot.setSpeedShootA(ShooterConstants.defaultSpeedTop);
+              m_robotShoot.setSpeedShootB(ShooterConstants.defaultSpeedBottom);
             },
             m_robotShoot));
     LeftBumper.onFalse(
@@ -140,15 +149,15 @@ public class RobotContainer {
     RightBumper.onTrue(
         new RunCommand(
             () -> {
-              m_robotShoot.setSpeedShootA(0.9);
-              m_robotShoot.setSpeedShootB(0.9);
+              m_robotShoot.setSpeedShootA(-ShooterConstants.defaultSpeedTop);
+              m_robotShoot.setSpeedShootB(-ShooterConstants.defaultSpeedBottom);
             },
             m_robotShoot));
     RightBumper.onFalse(
         new RunCommand(
             () -> {
-              m_robotShoot.setSpeedShootA(-0.9);
-              m_robotShoot.setSpeedShootB(-0.9);
+              m_robotShoot.setSpeedShootA(0);
+              m_robotShoot.setSpeedShootB(0);
             },
             m_robotShoot));
 
