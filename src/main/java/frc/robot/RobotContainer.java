@@ -26,8 +26,8 @@ import frc.robot.subsystems.*;
 public class RobotContainer {
   // The robot's subsystems
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
-  private final Elevator m_robotElevator = new Elevator();
-  private final Intake m_robotIntake = new Intake();
+  protected final Elevator m_robotElevator = new Elevator();
+  protected final Intake m_robotIntake = new Intake();
   private final Shooter m_robotShoot = new Shooter();
   private final Climbers m_robotClimb = new Climbers();
 
