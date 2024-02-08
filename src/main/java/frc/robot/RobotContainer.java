@@ -5,29 +5,17 @@
 package frc.robot;
 
 import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.controller.ProfiledPIDController;
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.math.trajectory.Trajectory;
-import edu.wpi.first.math.trajectory.TrajectoryConfig;
-import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.Constants.AutoConstants;
-import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
-import frc.robot.subsystems.*;
 import frc.robot.commands.*;
-import java.util.List;
+import frc.robot.subsystems.*;
 
 /*
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -48,8 +36,8 @@ public class RobotContainer {
   CommandXboxController m_debugController =
       new CommandXboxController(OIConstants.kDebugControllerPort);
 
-    // A chooser for autonomous commands
-    SendableChooser<Command> m_autoChooser = new SendableChooser<>();
+  // A chooser for autonomous commands
+  SendableChooser<Command> m_autoChooser = new SendableChooser<>();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -59,6 +47,7 @@ public class RobotContainer {
     // Sendable Chooser for autonomous
     // add items to chooser
     m_autoChooser.setDefaultOption("Fold", new Fold(m_robotElevator, m_robotIntake));
+
     SmartDashboard.putData("Auto Mode", m_autoChooser);
 
     // Configure default commands
@@ -77,15 +66,13 @@ public class RobotContainer {
                     true),
             m_robotDrive));
 
-
     m_robotIntake.setDefaultCommand(
         new RunCommand(
-        () -> {
-            m_robotIntake.setSpeedElbow(m_debugController.getLeftY());
-            m_robotIntake.setSpeedWrist(m_debugController.getRightY());
-        }
-        , m_robotIntake)
-    );
+            () -> {
+              m_robotIntake.setSpeedElbow(m_debugController.getLeftY());
+              m_robotIntake.setSpeedWrist(m_debugController.getRightY());
+            },
+            m_robotIntake));
   }
 
   // Set Default command for climbers. The sticks should be associated to each climber so they work
@@ -107,7 +94,7 @@ public class RobotContainer {
      * A - Intake In
      * B - Intake Out
      * DPad - Elevator
-     * Left Bumper - Shoot
+     * Left Bumper - Shoot note
      * Right Bumper - Take-In note
      * Left Y - Elbow
      * Right Y - Wrist
@@ -133,39 +120,41 @@ public class RobotContainer {
     b.onTrue(new RunCommand(() -> m_robotIntake.setSpeedIntake(-0.5), m_robotIntake));
     b.onFalse(new RunCommand(() -> m_robotIntake.setSpeedIntake(0.0), m_robotIntake));
 
-    // Need to change so that both motors are running for both Left and Right bumper
     final Trigger LeftBumper = m_debugController.leftBumper();
-    LeftBumper.onTrue(new RunCommand(() -> {
-      m_robotShoot.setSpeedShootA(0.9);
-      m_robotShoot.setSpeedShootB (0.9);
-    }, m_robotShoot));
-    LeftBumper.onFalse(new RunCommand(() -> {
-      m_robotShoot.setSpeedShootA(0.0);
-      m_robotShoot.setSpeedShootB (0.0);
-    }, m_robotShoot));
-    
+    LeftBumper.onTrue(
+        new RunCommand(
+            () -> {
+              m_robotShoot.setSpeedShootA(0.9);
+              m_robotShoot.setSpeedShootB(0.9);
+            },
+            m_robotShoot));
+    LeftBumper.onFalse(
+        new RunCommand(
+            () -> {
+              m_robotShoot.setSpeedShootA(0.0);
+              m_robotShoot.setSpeedShootB(0.0);
+            },
+            m_robotShoot));
 
     final Trigger RightBumper = m_debugController.rightBumper();
-     RightBumper.onTrue(new RunCommand(() -> {
-            m_robotShoot.setSpeedShootA(0.9);
-            m_robotShoot.setSpeedShootB(0.9);
-            }
-            ,m_robotShoot)
-        );
-    RightBumper.onFalse(new RunCommand(() -> {
-            m_robotShoot.setSpeedShootA(-0.9);
-            m_robotShoot.setSpeedShootB(-0.9);
-            }
-            ,m_robotShoot)
-        );
+    RightBumper.onTrue(
+        new RunCommand(
+            () -> {
+              m_robotShoot.setSpeedShootA(0.9);
+              m_robotShoot.setSpeedShootB(0.9);
+            },
+            m_robotShoot));
+    RightBumper.onFalse(
+        new RunCommand(
+            () -> {
+              m_robotShoot.setSpeedShootA(-0.9);
+              m_robotShoot.setSpeedShootB(-0.9);
+            },
+            m_robotShoot));
 
-        final Trigger noteTrigger = new Trigger(m_robotShoot::isNote);
+    final Trigger noteTrigger = new Trigger(m_robotShoot::isNote);
     noteTrigger.onTrue(new RunCommand(() -> new Fold(m_robotElevator, m_robotIntake)));
-
-    }
-     
-     
-            
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

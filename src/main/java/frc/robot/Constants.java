@@ -147,6 +147,7 @@ public final class Constants {
   public static final class ClimbersConstants {
     public static final int NeoLeftClimber = 30;
     public static final int NeoRightClimber = 31;
+    public static final double defaultSpeed = 0.5;
   }
 
   public static final class ShooterConstants {
