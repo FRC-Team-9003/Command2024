@@ -2,6 +2,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Elevator;
+import frc.robot.Constants.ElevatorConstants;
 
 public class ElevMin extends Command {
   private final Elevator m_Elevator;
@@ -13,7 +14,7 @@ public class ElevMin extends Command {
 
   @Override
   public void initialize() {
-    // set elevator to go down at 1/2 speed
+    m_Elevator.setSpeed(ElevatorConstants.defaultSpeed);
   }
 
   @Override
@@ -26,8 +27,7 @@ public class ElevMin extends Command {
 
   @Override
   public boolean isFinished() {
-    // return limit switch isPressed
-    return true; // temp value
+   return m_Elevator.getElevFwd();
   }
 
   @Override

@@ -163,5 +163,6 @@ public final class Constants {
 
   public static final class ElevatorConstants {
     public static final int kElevatorCanID = 20;
+    public static final double defaultSpeed = 0.15;
   }
 }
