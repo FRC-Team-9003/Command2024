@@ -37,9 +37,9 @@ public class RobotContainer {
   CommandXboxController m_debugController =
       new CommandXboxController(OIConstants.kDebugControllerPort);
   
-  POVButton m_redButton = new POVButton(OIConstants.kMechanismBoxRedPort);
-  POVButton m_blueButton = new POVButton(OIConstants.kMechanismBoxBluePort);
-
+  /* CommandJoystick m_redButton = new CommandJoystick(OIConstants.kMechanismBoxRedPort);
+  CommandJoystick m_blueButton = new CommandJoystick(OIConstants.kMechanismBoxBluePort);
+ */
 
   // A chooser for autonomous commands
   SendableChooser<Command> m_autoChooser = new SendableChooser<>();
