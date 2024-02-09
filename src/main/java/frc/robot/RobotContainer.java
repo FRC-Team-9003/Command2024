@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.*;
 import frc.robot.commands.*;
@@ -36,10 +35,10 @@ public class RobotContainer {
   CommandJoystick m_stickDrive = new CommandJoystick(OIConstants.kDriverControllerPort);
   CommandXboxController m_debugController =
       new CommandXboxController(OIConstants.kDebugControllerPort);
-  
+
   /* CommandJoystick m_redButton = new CommandJoystick(OIConstants.kMechanismBoxRedPort);
-  CommandJoystick m_blueButton = new CommandJoystick(OIConstants.kMechanismBoxBluePort);
- */
+   CommandJoystick m_blueButton = new CommandJoystick(OIConstants.kMechanismBoxBluePort);
+  */
 
   // A chooser for autonomous commands
   SendableChooser<Command> m_autoChooser = new SendableChooser<>();
@@ -166,8 +165,8 @@ public class RobotContainer {
             },
             m_robotShoot));
 
-    final Trigger noteTrigger = new Trigger(m_robotShoot::isNote);
-    noteTrigger.onTrue(new RunCommand(() -> new Fold(m_robotElevator, m_robotIntake)));
+    // final Trigger noteTrigger = new Trigger(m_robotShoot::isNote);
+    // noteTrigger.onTrue(new RunCommand(() -> new Fold(m_robotElevator, m_robotIntake)));
   }
 
   /**

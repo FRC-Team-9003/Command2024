@@ -14,7 +14,7 @@ public class Fold extends ParallelCommandGroup {
 
     addRequirements(m_intake, m_elevator);
 
-    addCommands(new ElevMax(m_elevator)); // Add Intake operations
+    addCommands(new ElevMax(m_elevator), new WristCurl(m_intake), new ElbowUp(m_intake));
   }
 
   @Override
