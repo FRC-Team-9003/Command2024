@@ -165,7 +165,7 @@ public class RobotContainer {
             },
             m_robotShoot));
 
-    // final Trigger noteTrigger = new Trigger(m_robotShoot::isNote);
+    // final Trigger noteTrigger = new Trigger(m_robotIntake::isNote);
     // noteTrigger.onTrue(new RunCommand(() -> new Fold(m_robotElevator, m_robotIntake)));
   }
 
