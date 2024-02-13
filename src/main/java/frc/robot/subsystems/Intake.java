@@ -5,6 +5,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkAbsoluteEncoder;
 import com.revrobotics.SparkAbsoluteEncoder.Type;
 import com.revrobotics.SparkLimitSwitch;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IntakeConstants;
 
@@ -20,8 +21,11 @@ public class Intake extends SubsystemBase {
   private SparkLimitSwitch elbowFwd;
   private SparkLimitSwitch elbowRev;
 
+  private DigitalInput intakeSwitch;
+
   public Intake() {
     intake = new CANSparkMax(IntakeConstants.Neo550Intake, MotorType.kBrushless);
+    intakeSwitch = new DigitalInput(1);
 
     elbow = new CANSparkMax(IntakeConstants.NeoElbow, MotorType.kBrushless);
 
@@ -34,10 +38,8 @@ public class Intake extends SubsystemBase {
     wristFwd = wrist.getForwardLimitSwitch(SparkLimitSwitch.Type.kNormallyClosed);
     wristRev = wrist.getReverseLimitSwitch(SparkLimitSwitch.Type.kNormallyClosed);
 
-    elbowFwd = elbow.getReverseLimitSwitch(SparkLimitSwitch.Type.kNormallyClosed);
+    elbowFwd = elbow.getForwardLimitSwitch(SparkLimitSwitch.Type.kNormallyClosed);
     elbowRev = elbow.getReverseLimitSwitch(SparkLimitSwitch.Type.kNormallyClosed);
-
-    // Add limit switch for intake. We don't know if it will be forward or reverse yet.
   }
 
   @Override
@@ -92,5 +94,9 @@ public class Intake extends SubsystemBase {
 
   public boolean getElbowRev() {
     return elbowRev.isPressed();
+  }
+
+  public boolean isNote() {
+    return intakeSwitch.get();
   }
 }
