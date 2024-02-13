@@ -16,7 +16,7 @@ public class ElbowUp extends Command {
 
   @Override
   public void initialize() {
-    m_intake.setSpeedElbow(-IntakeConstants.defaultSpeedElbow);
+    // m_intake.setSpeedElbow(-IntakeConstants.defaultSpeedElbow);
   }
 
   @Override
@@ -27,7 +27,8 @@ public class ElbowUp extends Command {
 
   @Override
   public boolean isFinished() {
-    return m_intake.getElbowRev();
+    // return m_intake.getElbowRev();
+    return false;
   }
 
   @Override

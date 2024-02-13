@@ -12,14 +12,10 @@ import frc.robot.Constants.IntakeConstants;
 public class Intake extends SubsystemBase {
 
   private CANSparkMax intake;
-  private CANSparkMax elbow;
   private CANSparkMax wrist;
   private SparkAbsoluteEncoder wristEncoder;
-  private SparkAbsoluteEncoder elbowEncoder;
   private SparkLimitSwitch wristFwd;
   private SparkLimitSwitch wristRev;
-  private SparkLimitSwitch elbowFwd;
-  private SparkLimitSwitch elbowRev;
 
   private DigitalInput intakeSwitch;
 
@@ -27,19 +23,12 @@ public class Intake extends SubsystemBase {
     intake = new CANSparkMax(IntakeConstants.Neo550Intake, MotorType.kBrushless);
     intakeSwitch = new DigitalInput(1);
 
-    elbow = new CANSparkMax(IntakeConstants.NeoElbow, MotorType.kBrushless);
-
     wrist = new CANSparkMax(IntakeConstants.Neo550Wrist, MotorType.kBrushless);
 
     wristEncoder = wrist.getAbsoluteEncoder(Type.kDutyCycle);
 
-    elbowEncoder = elbow.getAbsoluteEncoder(Type.kDutyCycle);
-
     wristFwd = wrist.getForwardLimitSwitch(SparkLimitSwitch.Type.kNormallyClosed);
     wristRev = wrist.getReverseLimitSwitch(SparkLimitSwitch.Type.kNormallyClosed);
-
-    elbowFwd = elbow.getForwardLimitSwitch(SparkLimitSwitch.Type.kNormallyClosed);
-    elbowRev = elbow.getReverseLimitSwitch(SparkLimitSwitch.Type.kNormallyClosed);
   }
 
   @Override
@@ -56,10 +45,6 @@ public class Intake extends SubsystemBase {
     wrist.stopMotor();
   }
 
-  public void stopElbow() {
-    elbow.stopMotor();
-  }
-
   public void setSpeedIntake(double speed) {
     intake.set(speed);
   }
@@ -68,16 +53,8 @@ public class Intake extends SubsystemBase {
     wrist.set(speed);
   }
 
-  public void setSpeedElbow(double speed) {
-    elbow.set(speed);
-  }
-
   public double getWristEncoder() {
     return wristEncoder.getPosition();
-  }
-
-  public double getElbowEncoder() {
-    return elbowEncoder.getPosition();
   }
 
   public boolean getWristFwd() {
@@ -86,14 +63,6 @@ public class Intake extends SubsystemBase {
 
   public boolean getWristRev() {
     return wristRev.isPressed();
-  }
-
-  public boolean getElbowFwd() {
-    return elbowFwd.isPressed();
-  }
-
-  public boolean getElbowRev() {
-    return elbowRev.isPressed();
   }
 
   public boolean isNote() {

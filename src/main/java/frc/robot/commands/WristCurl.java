@@ -16,7 +16,7 @@ public class WristCurl extends Command {
 
   @Override
   public void initialize() {
-    m_intake.setSpeedElbow(IntakeConstants.defaultSpeedWrist);
+    // m_intake.setSpeedElbow(IntakeConstants.defaultSpeedWrist);
   }
 
   @Override

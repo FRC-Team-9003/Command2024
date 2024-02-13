@@ -44,7 +44,7 @@ public class ShuffleboardSetup extends Command {
     elevSensors.addDouble("Elevator Encoder", elev::getElevEncoder);
 
     intakeSensors.addDouble("Wrist Encoder", intake::getWristEncoder);
-    intakeSensors.addDouble("Elbow Encoder", intake::getElbowEncoder);
+    // intakeSensors.addDouble("Elbow Encoder", intake::getElbowEncoder);
 
     commandsTab.add(new Fold(elev, intake));
   }

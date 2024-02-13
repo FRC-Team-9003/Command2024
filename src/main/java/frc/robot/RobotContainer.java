@@ -28,6 +28,7 @@ public class RobotContainer {
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
   protected final Elevator m_robotElevator = new Elevator();
   protected final Intake m_robotIntake = new Intake();
+  protected final Elbow m_robotElbow = new Elbow();
   private final Shooter m_robotShoot = new Shooter();
   private final Climbers m_robotClimb = new Climbers();
 
@@ -72,11 +73,11 @@ public class RobotContainer {
 
     m_robotIntake.setDefaultCommand(
         new RunCommand(
-            () -> {
-              m_robotIntake.setSpeedElbow(m_debugController.getLeftY());
-              m_robotIntake.setSpeedWrist(m_debugController.getRightY());
-            },
-            m_robotIntake));
+            () -> m_robotIntake.setSpeedWrist(m_debugController.getLeftY() / 4), m_robotIntake));
+
+    m_robotElbow.setDefaultCommand(
+        new RunCommand(
+            () -> m_robotElbow.setSpeedElbow(m_debugController.getRightY() / 4), m_robotElbow));
   }
 
   // Set Default command for climbers. The sticks should be associated to each climber so they work
@@ -141,10 +142,7 @@ public class RobotContainer {
               m_robotShoot.setSpeedShootB(ShooterConstants.defaultSpeedBottom);
             },
             m_robotShoot));
-    LeftBumper.onFalse(
-        new RunCommand(
-            () -> m_robotShoot.stopShooter(),
-            m_robotShoot));
+    LeftBumper.onFalse(new RunCommand(() -> m_robotShoot.stopShooter(), m_robotShoot));
 
     final Trigger RightBumper = m_debugController.rightBumper();
     RightBumper.onTrue(
@@ -154,10 +152,7 @@ public class RobotContainer {
               m_robotShoot.setSpeedShootB(-ShooterConstants.defaultSpeedBottom);
             },
             m_robotShoot));
-    RightBumper.onFalse(
-        new RunCommand(
-            () -> m_robotShoot.stopShooter(),
-            m_robotShoot));
+    RightBumper.onFalse(new RunCommand(() -> m_robotShoot.stopShooter(), m_robotShoot));
 
     // final Trigger noteTrigger = new Trigger(m_robotIntake::isNote);
     // noteTrigger.onTrue(new RunCommand(() -> new Fold(m_robotElevator, m_robotIntake)));

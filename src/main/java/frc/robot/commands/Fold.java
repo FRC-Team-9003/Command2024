@@ -1,9 +1,9 @@
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.*;
 import frc.robot.subsystems.*;
 
-public class Fold extends ParallelCommandGroup {
+public class Fold extends Command {
   private final Intake m_intake;
   private final Elevator m_elevator;
 
@@ -14,7 +14,7 @@ public class Fold extends ParallelCommandGroup {
 
     addRequirements(m_intake, m_elevator);
 
-    addCommands(new ElevMax(m_elevator), new WristCurl(m_intake), new ElbowUp(m_intake));
+    // addCommands(new ElevMax(m_elevator), new WristCurl(m_intake), new ElbowUp(m_intake));
   }
 
   @Override
