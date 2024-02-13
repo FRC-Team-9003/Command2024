@@ -112,13 +112,13 @@ public class RobotContainer {
     povUp.onTrue(
         new RunCommand(
             () -> m_robotElevator.setSpeed(-ElevatorConstants.defaultSpeed), m_robotElevator));
-    povUp.onFalse(new RunCommand(() -> m_robotElevator.setSpeed(0), m_robotElevator));
+    povUp.onFalse(new RunCommand(() -> m_robotElevator.stop(), m_robotElevator));
 
     final Trigger povDown = m_debugController.povDown();
     povDown.onTrue(
         new RunCommand(
             () -> m_robotElevator.setSpeed(ElevatorConstants.defaultSpeed), m_robotElevator));
-    povDown.onFalse(new RunCommand(() -> m_robotElevator.setSpeed(0), m_robotElevator));
+    povDown.onFalse(new RunCommand(() -> m_robotElevator.stop(), m_robotElevator));
 
     final Trigger a = m_debugController.a();
     a.onTrue(
@@ -131,7 +131,7 @@ public class RobotContainer {
     b.onTrue(
         new RunCommand(
             () -> m_robotIntake.setSpeedIntake(IntakeConstants.defaultSpeedIntake), m_robotIntake));
-    b.onFalse(new RunCommand(() -> m_robotIntake.setSpeedIntake(0.0), m_robotIntake));
+    b.onFalse(new RunCommand(() -> m_robotIntake.stopIntake(), m_robotIntake));
 
     final Trigger LeftBumper = m_debugController.leftBumper();
     LeftBumper.onTrue(
@@ -143,10 +143,7 @@ public class RobotContainer {
             m_robotShoot));
     LeftBumper.onFalse(
         new RunCommand(
-            () -> {
-              m_robotShoot.setSpeedShootA(0.0);
-              m_robotShoot.setSpeedShootB(0.0);
-            },
+            () -> m_robotShoot.stopShooter(),
             m_robotShoot));
 
     final Trigger RightBumper = m_debugController.rightBumper();
@@ -159,10 +156,7 @@ public class RobotContainer {
             m_robotShoot));
     RightBumper.onFalse(
         new RunCommand(
-            () -> {
-              m_robotShoot.setSpeedShootA(0);
-              m_robotShoot.setSpeedShootB(0);
-            },
+            () -> m_robotShoot.stopShooter(),
             m_robotShoot));
 
     // final Trigger noteTrigger = new Trigger(m_robotIntake::isNote);
