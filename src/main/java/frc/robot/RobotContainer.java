@@ -5,10 +5,11 @@
 package frc.robot;
 
 import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Command.InterruptionBehavior;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -51,7 +52,7 @@ public class RobotContainer {
 
     // Sendable Chooser for autonomous
     // add items to chooser
-    m_autoChooser.setDefaultOption("Fold", new Fold(m_robotElevator, m_robotIntake));
+    m_autoChooser.setDefaultOption("Placeholder", new ElevMax(m_robotElevator));
 
     SmartDashboard.putData("Auto Mode", m_autoChooser);
 
@@ -73,11 +74,14 @@ public class RobotContainer {
 
     m_robotIntake.setDefaultCommand(
         new RunCommand(
-            () -> m_robotIntake.setSpeedWrist(m_debugController.getLeftY() / 4), m_robotIntake));
+            () -> {
+              m_robotIntake.setSpeedWrist(m_debugController.getLeftY() / 4);
+            },
+            m_robotIntake));
 
     m_robotElbow.setDefaultCommand(
         new RunCommand(
-            () -> m_robotElbow.setSpeedElbow(m_debugController.getRightY() / 4), m_robotElbow));
+            () -> m_robotElbow.setSpeedElbow(m_debugController.getRightY() / 2), m_robotElbow));
   }
 
   // Set Default command for climbers. The sticks should be associated to each climber so they work
@@ -99,60 +103,77 @@ public class RobotContainer {
      * A - Intake In
      * B - Intake Out
      * DPad - Elevator
-     * Left Bumper - Shoot note
+     * Left Bumper - Shoot note top motors
+     * Left Trigger - Shoot note bottom motor
      * Right Bumper - Take-In note
      * Left Y - Elbow
      * Right Y - Wrist
      */
 
     final Trigger x = m_debugController.x();
-    x.onTrue(new RunCommand(() -> m_robotDrive.setX(), m_robotDrive));
-    x.onFalse(new RunCommand(() -> m_robotDrive.setNormal(), m_robotDrive));
+
+    // x.onTrue(new InstantCommand(() -> m_robotDrive.setX(), m_robotDrive));
+    // x.onFalse(new InstantCommand(() -> m_robotDrive.setNormal(), m_robotDrive));
+
+    x.whileTrue(
+        new WristPosition(0.25, m_robotIntake)
+            .withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 
     final Trigger povUp = m_debugController.povUp();
     povUp.onTrue(
-        new RunCommand(
+        new InstantCommand(
             () -> m_robotElevator.setSpeed(-ElevatorConstants.defaultSpeed), m_robotElevator));
-    povUp.onFalse(new RunCommand(() -> m_robotElevator.stop(), m_robotElevator));
+    povUp.onFalse(new InstantCommand(() -> m_robotElevator.stop(), m_robotElevator));
 
     final Trigger povDown = m_debugController.povDown();
     povDown.onTrue(
-        new RunCommand(
+        new InstantCommand(
             () -> m_robotElevator.setSpeed(ElevatorConstants.defaultSpeed), m_robotElevator));
-    povDown.onFalse(new RunCommand(() -> m_robotElevator.stop(), m_robotElevator));
+    povDown.onFalse(new InstantCommand(() -> m_robotElevator.stop(), m_robotElevator));
 
     final Trigger a = m_debugController.a();
     a.onTrue(
-        new RunCommand(
+        new InstantCommand(
             () -> m_robotIntake.setSpeedIntake(-IntakeConstants.defaultSpeedIntake),
             m_robotIntake));
-    a.onFalse(new RunCommand(() -> m_robotIntake.setSpeedIntake(0.0), m_robotIntake));
+    a.onFalse(new InstantCommand(() -> m_robotIntake.setSpeedIntake(0.0), m_robotIntake));
 
     final Trigger b = m_debugController.b();
     b.onTrue(
-        new RunCommand(
+        new InstantCommand(
             () -> m_robotIntake.setSpeedIntake(IntakeConstants.defaultSpeedIntake), m_robotIntake));
-    b.onFalse(new RunCommand(() -> m_robotIntake.stopIntake(), m_robotIntake));
+    b.onFalse(new InstantCommand(() -> m_robotIntake.stopIntake(), m_robotIntake));
+
+    final Trigger y = m_debugController.y();
+    y.onTrue(
+        new InstantCommand(
+            () -> {
+              m_robotShoot.setSpeedTop(1.0);
+              m_robotShoot.setSpeedBottom(0.9);
+            },
+            m_robotShoot));
+    y.onFalse(
+        new InstantCommand(
+            () -> {
+              m_robotShoot.stopBottom();
+              m_robotShoot.stopTop();
+            },
+            m_robotShoot));
 
     final Trigger LeftBumper = m_debugController.leftBumper();
-    LeftBumper.onTrue(
-        new RunCommand(
-            () -> {
-              m_robotShoot.setSpeedShootA(ShooterConstants.defaultSpeedTop);
-              m_robotShoot.setSpeedShootB(ShooterConstants.defaultSpeedBottom);
-            },
-            m_robotShoot));
-    LeftBumper.onFalse(new RunCommand(() -> m_robotShoot.stopShooter(), m_robotShoot));
+    LeftBumper.whileTrue(
+        new InstantCommand(
+            () -> m_robotShoot.setSpeedTop(ShooterConstants.defaultSpeedTop), m_robotShoot));
+    LeftBumper.onFalse(new InstantCommand(() -> m_robotShoot.stopTop(), m_robotShoot));
+
+    final Trigger lTrigger = m_debugController.leftTrigger();
+    lTrigger.whileTrue(
+        new InstantCommand(() -> m_robotShoot.setSpeedBottom(ShooterConstants.defaultSpeedBottom)));
+    lTrigger.onFalse(new InstantCommand(() -> m_robotShoot.stopBottom(), m_robotShoot));
 
     final Trigger RightBumper = m_debugController.rightBumper();
-    RightBumper.onTrue(
-        new RunCommand(
-            () -> {
-              m_robotShoot.setSpeedShootA(-ShooterConstants.defaultSpeedTop);
-              m_robotShoot.setSpeedShootB(-ShooterConstants.defaultSpeedBottom);
-            },
-            m_robotShoot));
-    RightBumper.onFalse(new RunCommand(() -> m_robotShoot.stopShooter(), m_robotShoot));
+    RightBumper.whileTrue(new InstantCommand(() -> m_robotShoot.setSpeedTop(-0.25), m_robotShoot));
+    RightBumper.onFalse(new InstantCommand(() -> m_robotShoot.stopTop(), m_robotShoot));
 
     // final Trigger noteTrigger = new Trigger(m_robotIntake::isNote);
     // noteTrigger.onTrue(new RunCommand(() -> new Fold(m_robotElevator, m_robotIntake)));

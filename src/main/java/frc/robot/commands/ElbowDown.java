@@ -4,11 +4,11 @@ import edu.wpi.first.wpilibj2.command.*;
 import frc.robot.Constants.ElbowConstants;
 import frc.robot.subsystems.Elbow;
 
-public class ElbowUp extends Command {
+public class ElbowDown extends Command {
 
   private final Elbow elbow;
 
-  public ElbowUp(Elbow subsystem) {
+  public ElbowDown(Elbow subsystem) {
     elbow = subsystem;
 
     addRequirements(elbow);
@@ -16,7 +16,7 @@ public class ElbowUp extends Command {
 
   @Override
   public void initialize() {
-    elbow.setSpeedElbow(-ElbowConstants.defaultSpeedElbow);
+    elbow.setSpeedElbow(ElbowConstants.defaultSpeedElbow);
   }
 
   @Override
@@ -27,7 +27,7 @@ public class ElbowUp extends Command {
 
   @Override
   public boolean isFinished() {
-    return elbow.getElbowRev();
+    return elbow.getElbowFwd();
   }
 
   @Override

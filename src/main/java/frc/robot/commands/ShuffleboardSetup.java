@@ -15,15 +15,17 @@ public class ShuffleboardSetup extends Command {
 
   Elevator elev;
   Intake intake;
+  Elbow elbow;
 
   // Network table setup
   NetworkTableInstance inst;
   NetworkTable table;
   DoublePublisher angle;
 
-  public ShuffleboardSetup(Elevator subsystem_E, Intake subsystem_I) {
+  public ShuffleboardSetup(Elevator subsystem_E, Elbow subsystem_el, Intake subsystem_I) {
 
     elev = subsystem_E;
+    elbow = subsystem_el;
     intake = subsystem_I;
 
     ShuffleboardTab encoderTab = Shuffleboard.getTab("Absolute Encoder");
@@ -37,16 +39,29 @@ public class ShuffleboardSetup extends Command {
 
     ShuffleboardLayout intakeSensors =
         encoderTab
-            .getLayout("Elevator", BuiltInLayouts.kList)
+            .getLayout("Intake", BuiltInLayouts.kList)
+            .withSize(2, 2)
+            .withProperties(Map.of("Label Position", "HIDDEN"));
+
+    ShuffleboardLayout elbowSensors =
+        encoderTab
+            .getLayout("Elbow", BuiltInLayouts.kList)
             .withSize(2, 2)
             .withProperties(Map.of("Label Position", "HIDDEN"));
 
     elevSensors.addDouble("Elevator Encoder", elev::getElevEncoder);
 
     intakeSensors.addDouble("Wrist Encoder", intake::getWristEncoder);
-    // intakeSensors.addDouble("Elbow Encoder", intake::getElbowEncoder);
 
-    commandsTab.add(new Fold(elev, intake));
+    elbowSensors.addDouble("Elbow Encoder", elbow::getElbowEncoder);
+
+    commandsTab.add(new ElbowDown(elbow));
+    commandsTab.add(new ElbowUp(elbow));
+    commandsTab.add(new ElevMax(elev));
+    commandsTab.add(new ElevMin(elev));
+
+    commandsTab.add(new FoldUp(elev, elbow, intake));
+    commandsTab.add(new WristPosition(0.25, intake));
   }
 
   // Called when the command is initially scheduled.

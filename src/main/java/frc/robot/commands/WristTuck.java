@@ -2,21 +2,21 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.*;
 import frc.robot.Constants.*;
-import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.*;
 
-public class WristCurl extends Command {
+public class WristTuck extends Command {
 
-  private Intake m_intake;
+  private Intake intake;
 
-  public WristCurl(Intake subsystem_I) {
+  public WristTuck(Intake subsystem_I) {
 
-    m_intake = subsystem_I;
-    addRequirements(m_intake);
+    intake = subsystem_I;
+    addRequirements(intake);
   }
 
   @Override
   public void initialize() {
-    // m_intake.setSpeedElbow(IntakeConstants.defaultSpeedWrist);
+    intake.setSpeedWrist(-IntakeConstants.defaultSpeedWrist);
   }
 
   @Override
@@ -27,7 +27,7 @@ public class WristCurl extends Command {
 
   @Override
   public boolean isFinished() {
-    return m_intake.getWristFwd();
+    return intake.getWristFwd();
   }
 
   @Override

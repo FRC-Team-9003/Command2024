@@ -6,7 +6,7 @@ import com.revrobotics.SparkAbsoluteEncoder;
 import com.revrobotics.SparkAbsoluteEncoder.Type;
 import com.revrobotics.SparkLimitSwitch;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.IntakeConstants;
+import frc.robot.Constants.ElbowConstants;
 
 public class Elbow extends SubsystemBase {
 
@@ -17,7 +17,7 @@ public class Elbow extends SubsystemBase {
 
   public Elbow() {
 
-    elbow = new CANSparkMax(IntakeConstants.NeoElbow, MotorType.kBrushless);
+    elbow = new CANSparkMax(ElbowConstants.NeoElbow, MotorType.kBrushless);
 
     elbowEncoder = elbow.getAbsoluteEncoder(Type.kDutyCycle);
 

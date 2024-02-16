@@ -2,17 +2,25 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ShooterConstants;
 
 public class Shooter extends SubsystemBase {
 
-  private CANSparkMax shootA;
-  private CANSparkMax shootB;
+  private CANSparkMax shootBottom;
+  private CANSparkMax shootTopLeft;
+  private CANSparkMax shootTopRight;
+
+  private DigitalInput noteSwitch;
 
   public Shooter() {
-    shootA = new CANSparkMax(ShooterConstants.NeoBottom, MotorType.kBrushless);
-    shootB = new CANSparkMax(ShooterConstants.NeoTop, MotorType.kBrushless);
+    shootBottom = new CANSparkMax(ShooterConstants.NeoBottom, MotorType.kBrushless);
+    shootTopLeft = new CANSparkMax(ShooterConstants.NeoTopLeft, MotorType.kBrushless);
+    shootTopRight = new CANSparkMax(ShooterConstants.NeoTopRight, MotorType.kBrushless);
+    shootTopRight.setInverted(true);
+
+    noteSwitch = new DigitalInput(3);
   }
 
   @Override
@@ -21,16 +29,25 @@ public class Shooter extends SubsystemBase {
   @Override
   public void simulationPeriodic() {}
 
-  public void stopShooter() {
-    shootA.stopMotor();
-    shootB.stopMotor();
+  public void setSpeedTop(double speed) {
+    shootTopLeft.set(speed);
+    shootTopRight.set(speed);
   }
 
-  public void setSpeedShootA(double speed) {
-    shootA.set(speed);
+  public void stopTop() {
+    shootTopLeft.stopMotor();
+    shootTopRight.stopMotor();
   }
 
-  public void setSpeedShootB(double speed) {
-    shootB.set(speed);
+  public void setSpeedBottom(double speed) {
+    shootBottom.set(speed);
+  }
+
+  public void stopBottom() {
+    shootBottom.stopMotor();
+  }
+
+  public boolean hasNote() {
+    return noteSwitch.get();
   }
 }

@@ -46,7 +46,11 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
 
-    setup = new ShuffleboardSetup(m_robotContainer.m_robotElevator, m_robotContainer.m_robotIntake);
+    setup =
+        new ShuffleboardSetup(
+            m_robotContainer.m_robotElevator,
+            m_robotContainer.m_robotElbow,
+            m_robotContainer.m_robotIntake);
   }
 
   /**
