@@ -16,7 +16,7 @@ public class WristTuck extends Command {
 
   @Override
   public void initialize() {
-    intake.setSpeedWrist(-IntakeConstants.defaultSpeedWrist);
+    intake.setSpeedWrist(IntakeConstants.defaultSpeedWrist);
   }
 
   @Override

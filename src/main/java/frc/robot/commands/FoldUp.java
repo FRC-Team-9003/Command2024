@@ -13,7 +13,10 @@ public class FoldUp extends ParallelCommandGroup {
     m_elevator = subsystem_E;
     m_elbow = subsystem_el;
     m_intake = subsystem_I;
-    addCommands(new ElevMax(m_elevator), new ElbowUp(m_elbow));
+    addCommands(
+        new ElevMax(m_elevator),
+        new ElbowUp(m_elbow),
+        new SequentialCommandGroup(new WaitCommand(0.01), new WristTuck(m_intake)));
   }
 
   @Override

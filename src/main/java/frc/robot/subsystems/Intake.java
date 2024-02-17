@@ -26,6 +26,7 @@ public class Intake extends SubsystemBase {
     wrist = new CANSparkMax(IntakeConstants.Neo550Wrist, MotorType.kBrushless);
 
     wristEncoder = wrist.getAbsoluteEncoder(Type.kDutyCycle);
+    // wristEncoder.setZeroOffset(0.0);
 
     wristFwd = wrist.getForwardLimitSwitch(SparkLimitSwitch.Type.kNormallyClosed);
     wristRev = wrist.getReverseLimitSwitch(SparkLimitSwitch.Type.kNormallyClosed);

@@ -163,7 +163,7 @@ public final class Constants {
     public static int Neo550Intake = 50;
     public static int Neo550Wrist = 52;
     public static final double defaultSpeedIntake = 0.8;
-    public static final double defaultSpeedWrist = 0.12;
+    public static final double defaultSpeedWrist = 0.15;
   }
 
   public static final class ElbowConstants {
@@ -173,6 +173,6 @@ public final class Constants {
 
   public static final class ElevatorConstants {
     public static final int kElevatorCanID = 20;
-    public static final double defaultSpeed = 0.35;
+    public static final double defaultSpeed = 0.5;
   }
 }
