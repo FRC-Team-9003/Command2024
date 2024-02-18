@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj2.command.*;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.subsystems.*;
 
-public class FoldDown extends ParallelCommandGroup {
+public class FoldDown extends SequentialCommandGroup {
   private final Elevator m_elevator;
   private final Elbow m_elbow;
   private final Intake m_intake;
@@ -17,12 +17,9 @@ public class FoldDown extends ParallelCommandGroup {
 
     addCommands(
         new ElbowPosition(0.05, m_elbow),
-        new SequentialCommandGroup(new PickUp(m_elevator, m_intake),new ElbowDown(m_elbow),
-          new InstantCommand(() ->
-            m_intake.setSpeedIntake(IntakeConstants.defaultSpeedIntake)
-          )
-        )
-        );
+        new PickUp(m_elevator, m_intake),
+        new ElbowDown(m_elbow),
+        new InstantCommand(() -> m_intake.setSpeedIntake(IntakeConstants.defaultSpeedIntake)));
   }
 
   @Override
