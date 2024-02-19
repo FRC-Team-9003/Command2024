@@ -19,7 +19,7 @@ public class IntakeNote extends Command {
 
   @Override
   public void execute() {
-    intake.setSpeedIntake(IntakeConstants.defaultSpeedIntake);
+    intake.setSpeedIntake(-IntakeConstants.defaultSpeedIntake);
   }
 
   @Override
@@ -29,7 +29,7 @@ public class IntakeNote extends Command {
 
   @Override
   public boolean isFinished() {
-    return intake.isNote();
+    return !intake.isNote();
   }
 
   @Override

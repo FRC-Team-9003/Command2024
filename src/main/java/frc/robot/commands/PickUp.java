@@ -13,6 +13,6 @@ public class PickUp extends ParallelCommandGroup {
     m_elevator = subsystem_e;
     m_intake = subsystem_i;
 
-    addCommands(new ElevMin(m_elevator), new WristPosition(0.1, m_intake));
+    addCommands(new ElevMin(m_elevator), new WristPosition(0.2, m_intake));
   }
 }

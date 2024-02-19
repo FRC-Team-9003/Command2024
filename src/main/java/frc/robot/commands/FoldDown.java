@@ -14,7 +14,11 @@ public class FoldDown extends SequentialCommandGroup {
     m_elbow = subsystem_el;
     m_intake = subsystem_I;
 
-    addCommands(new ElbowPosition(0.05, m_elbow), new PickUp(m_elevator, m_intake), new IntakeNote(m_intake));
+    addCommands(
+        new ElbowPosition(0.05, m_elbow),
+        new PickUp(m_elevator, m_intake),
+        new ElbowDown(m_elbow),
+        new IntakeNote(m_intake));
   }
 
   @Override
