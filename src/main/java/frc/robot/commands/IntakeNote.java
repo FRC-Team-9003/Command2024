@@ -1,20 +1,40 @@
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import frc.robot.subsystems.*;
+import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants.IntakeConstants;
+import frc.robot.subsystems.Intake;
 
-public class IntakeNote extends ParallelCommandGroup {
+public class IntakeNote extends Command {
 
-  private Elevator elev;
-  private Elbow el;
   private Intake intake;
 
-  public IntakeNote(Elevator subsystem_E, Elbow subsystem_el, Intake subsystem_I) {
-
-    elev = subsystem_E;
-    el = subsystem_el;
+  public IntakeNote(Intake subsystem_I) {
     intake = subsystem_I;
 
-    addCommands(new ElevMin(elev), new ElbowDown(el));
+    addRequirements(intake);
+  }
+
+  @Override
+  public void initialize() {
+  }
+
+  @Override
+  public void execute() {
+    intake.setSpeedIntake(IntakeConstants.defaultSpeedIntake);
+  }
+
+  @Override
+  public void end(boolean interrupted) {
+    intake.stopIntake();
+  }
+
+  @Override
+  public boolean isFinished() {
+    return intake.isNote();
+  }
+
+  @Override
+  public boolean runsWhenDisabled() {
+      return false;
   }
 }

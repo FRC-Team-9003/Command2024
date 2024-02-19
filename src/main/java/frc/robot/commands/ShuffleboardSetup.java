@@ -66,6 +66,7 @@ public class ShuffleboardSetup extends Command {
     commandsTab.add(new WristPosition(0.05, intake));
     commandsTab.add(new ElbowPosition(0.05, elbow));
 
+    commandsTab.add(new IntakeNote(intake));
     commandsTab.add(new PickUp(elev, intake));
   }
 

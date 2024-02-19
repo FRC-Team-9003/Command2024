@@ -1,6 +1,8 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import frc.robot.Constants.IntakeConstants;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
 
@@ -13,6 +15,8 @@ public class PickUp extends ParallelCommandGroup {
     m_elevator = subsystem_e;
     m_intake = subsystem_i;
 
-    addCommands(new ElevMin(m_elevator), new WristPosition(0.075, m_intake));
+    addCommands(
+        new ElevMin(m_elevator),
+        new WristPosition(0.1, m_intake));
   }
 }

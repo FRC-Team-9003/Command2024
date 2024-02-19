@@ -13,6 +13,7 @@ public class Climbers extends SubsystemBase {
   public Climbers() {
     leftclimb = new CANSparkMax(ClimbersConstants.NeoLeftClimber, MotorType.kBrushless);
     rightclimb = new CANSparkMax(ClimbersConstants.NeoRightClimber, MotorType.kBrushless);
+    rightclimb.setInverted(true);
   }
 
   @Override
