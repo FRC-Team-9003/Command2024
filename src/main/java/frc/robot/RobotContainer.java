@@ -68,6 +68,15 @@ public class RobotContainer {
                     true,
                     true),
             m_robotDrive));
+
+    m_robotClimb.setDefaultCommand(
+        new RunCommand(
+            () -> {
+              m_robotClimb.setSpeedLeftClimb(m_blueButton.getY());
+              m_robotClimb.setSpeedRightClimb(m_redButton.getY());
+            },
+            m_robotClimb));
+
     /*
      * The code for testing elbow and wrist movement.
      *
@@ -98,6 +107,7 @@ public class RobotContainer {
    * {@link JoystickButton}.
    */
   private void configureButtonBindings() {
+
     // put button bindings for red / blue box
   }
 
