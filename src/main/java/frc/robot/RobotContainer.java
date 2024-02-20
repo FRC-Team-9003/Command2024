@@ -8,8 +8,10 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 // import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.*;
 import frc.robot.commands.*;
@@ -99,6 +101,44 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     // put button bindings for red / blue box
+
+    final Trigger Shoot = m_blueButton.button(2);
+    Shoot.onTrue(
+        new InstantCommand(
+            () -> m_robotShoot.setSpeedBottom(ShooterConstants.defaultSpeedBottom), m_robotShoot));
+    Shoot.onFalse(
+        new InstantCommand(
+            () -> m_robotShoot.setSpeedBottom(ShooterConstants.defaultSpeedBottom), m_robotShoot));
+
+    final Trigger ShootIn = m_redButton.button(1);
+    ShootIn.onTrue(
+        new InstantCommand(
+            () -> m_robotShoot.setSpeedTop(ShooterConstants.defaultSpeedTop), m_robotShoot));
+    ShootIn.onFalse(
+        new InstantCommand(
+            () -> m_robotShoot.setSpeedTop(ShooterConstants.defaultSpeedTop), m_robotShoot));
+
+    final Trigger Wrist = m_redButton.button(3);
+    Wrist.onTrue(
+        new InstantCommand(
+            () -> m_robotIntake.setSpeedWrist(IntakeConstants.defaultSpeedWrist), m_robotIntake));
+    Wrist.onFalse(
+        new InstantCommand(
+            () -> m_robotIntake.setSpeedWrist(IntakeConstants.defaultSpeedWrist), m_robotIntake));
+
+    final Trigger Eject = m_redButton.button(4);
+    Eject.onTrue(
+        new InstantCommand(
+            () -> m_robotIntake.setSpeedIntake(IntakeConstants.defaultSpeedIntake), m_robotIntake));
+    Eject.onFalse(
+        new InstantCommand(
+            () -> m_robotIntake.setSpeedIntake(IntakeConstants.defaultSpeedIntake), m_robotIntake));
+
+    final Trigger FoldDown = m_blueButton.button(7);
+    FoldDown.onTrue(new FoldDown(m_robotElevator, m_robotElbow, m_robotIntake));
+
+    final Trigger FoldUp = m_blueButton.button(3);
+    FoldUp.onTrue(new FoldUp(m_robotElevator, m_robotElbow, m_robotIntake));
   }
 
   /** private void configureDebugBindings() { */
