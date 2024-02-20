@@ -112,37 +112,39 @@ public class RobotContainer {
 
     // put button bindings for red / blue box
 
-    final Trigger Shoot = m_blueButton.button(2);
+    final Trigger Shoot = m_blueButton.button(1);
     Shoot.onTrue(
         new InstantCommand(
-            () -> m_robotShoot.setSpeedBottom(ShooterConstants.defaultSpeedBottom), m_robotShoot));
+            () -> {
+              m_robotShoot.setSpeedBottom(ShooterConstants.defaultSpeedBottom);
+              m_robotShoot.setSpeedTop(ShooterConstants.defaultSpeedTop);
+            },
+            m_robotShoot));
     Shoot.onFalse(
         new InstantCommand(
-            () -> m_robotShoot.setSpeedBottom(ShooterConstants.defaultSpeedBottom), m_robotShoot));
+            () -> {
+              m_robotShoot.stopBottom();
+              m_robotShoot.stopTop();
+            },
+            m_robotShoot));
 
     final Trigger ShootIn = m_redButton.button(1);
     ShootIn.onTrue(
         new InstantCommand(
-            () -> m_robotShoot.setSpeedTop(ShooterConstants.defaultSpeedTop), m_robotShoot));
-    ShootIn.onFalse(
-        new InstantCommand(
-            () -> m_robotShoot.setSpeedTop(ShooterConstants.defaultSpeedTop), m_robotShoot));
+            () -> m_robotShoot.setSpeedTop(-ShooterConstants.defaultIn), m_robotShoot));
+    ShootIn.onFalse(new InstantCommand(() -> m_robotShoot.stopTop(), m_robotShoot));
 
     final Trigger Wrist = m_redButton.button(3);
     Wrist.onTrue(
         new InstantCommand(
-            () -> m_robotIntake.setSpeedWrist(IntakeConstants.defaultSpeedWrist), m_robotIntake));
-    Wrist.onFalse(
-        new InstantCommand(
-            () -> m_robotIntake.setSpeedWrist(IntakeConstants.defaultSpeedWrist), m_robotIntake));
+            () -> m_robotIntake.setSpeedWrist(-IntakeConstants.defaultSpeedWrist), m_robotIntake));
+    Wrist.onFalse(new InstantCommand(() -> m_robotIntake.stopWrist(), m_robotIntake));
 
     final Trigger Eject = m_redButton.button(4);
     Eject.onTrue(
         new InstantCommand(
             () -> m_robotIntake.setSpeedIntake(IntakeConstants.defaultSpeedIntake), m_robotIntake));
-    Eject.onFalse(
-        new InstantCommand(
-            () -> m_robotIntake.setSpeedIntake(IntakeConstants.defaultSpeedIntake), m_robotIntake));
+    Eject.onFalse(new InstantCommand(() -> m_robotIntake.stopIntake(), m_robotIntake));
 
     final Trigger FoldDown = m_blueButton.button(7);
     FoldDown.onTrue(new FoldDown(m_robotElevator, m_robotElbow, m_robotIntake));
