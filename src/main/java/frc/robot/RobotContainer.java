@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.*;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
+import java.util.function.BooleanSupplier;
 
 /*
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -110,17 +111,15 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
 
-    // put button bindings for red / blue box
-
-    final Trigger Shoot = m_blueButton.button(1);
-    Shoot.onTrue(
+    final Trigger shoot = m_blueButton.button(1);
+    shoot.onTrue(
         new InstantCommand(
             () -> {
               m_robotShoot.setSpeedBottom(ShooterConstants.defaultSpeedBottom);
               m_robotShoot.setSpeedTop(ShooterConstants.defaultSpeedTop);
             },
             m_robotShoot));
-    Shoot.onFalse(
+    shoot.onFalse(
         new InstantCommand(
             () -> {
               m_robotShoot.stopBottom();
@@ -128,27 +127,31 @@ public class RobotContainer {
             },
             m_robotShoot));
 
-    final Trigger ShootIn = m_redButton.button(1);
-    ShootIn.onTrue(
+    final Trigger shootIn = m_redButton.button(1);
+    shootIn.onTrue(
         new InstantCommand(
             () -> m_robotShoot.setSpeedTop(-ShooterConstants.defaultIn), m_robotShoot));
-    ShootIn.onFalse(new InstantCommand(() -> m_robotShoot.stopTop(), m_robotShoot));
+    shootIn.onFalse(new InstantCommand(() -> m_robotShoot.stopTop(), m_robotShoot));
 
-    final Trigger Wrist = m_redButton.button(3);
-    Wrist.onTrue(new InstantCommand(() -> m_robotIntake.setSpeedWrist(-0.1), m_robotIntake));
-    Wrist.onFalse(new InstantCommand(() -> m_robotIntake.stopWrist(), m_robotIntake));
+    BooleanSupplier wristActive = () -> m_robotElevator.getElevRev() && m_robotElbow.getElbowRev();
 
-    final Trigger Eject = m_redButton.button(4);
-    Eject.onTrue(
+    final Trigger wrist = m_redButton.button(3);
+    wrist.onTrue(
+        new InstantCommand(() -> m_robotIntake.setSpeedWrist(-0.1), m_robotIntake)
+            .onlyIf(wristActive));
+    wrist.onFalse(new InstantCommand(() -> m_robotIntake.stopWrist(), m_robotIntake));
+
+    final Trigger eject = m_redButton.button(4);
+    eject.onTrue(
         new InstantCommand(
             () -> m_robotIntake.setSpeedIntake(IntakeConstants.defaultSpeedIntake), m_robotIntake));
-    Eject.onFalse(new InstantCommand(() -> m_robotIntake.stopIntake(), m_robotIntake));
+    eject.onFalse(new InstantCommand(() -> m_robotIntake.stopIntake(), m_robotIntake));
 
-    final Trigger FoldDown = m_blueButton.button(7);
-    FoldDown.onTrue(new FoldDown(m_robotElevator, m_robotElbow, m_robotIntake));
+    final Trigger foldDown = m_blueButton.button(7);
+    foldDown.onTrue(new FoldDown(m_robotElevator, m_robotElbow, m_robotIntake));
 
-    final Trigger FoldUp = m_blueButton.button(3);
-    FoldUp.onTrue(new FoldUp(m_robotElevator, m_robotElbow, m_robotIntake));
+    final Trigger foldUp = m_blueButton.button(3);
+    foldUp.onTrue(new FoldUp(m_robotElevator, m_robotElbow, m_robotIntake));
   }
 
   /** private void configureDebugBindings() { */
