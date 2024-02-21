@@ -14,6 +14,7 @@ public class FoldUp extends ParallelCommandGroup {
     m_elbow = subsystem_el;
     m_intake = subsystem_I;
     addCommands(
+        new InstantCommand(() -> m_intake.stopIntake()),
         new ElevMax(m_elevator),
         new ElbowUp(m_elbow),
         new SequentialCommandGroup(new WaitCommand(0.01), new WristTuck(m_intake)));

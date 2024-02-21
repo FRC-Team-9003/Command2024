@@ -135,9 +135,7 @@ public class RobotContainer {
     ShootIn.onFalse(new InstantCommand(() -> m_robotShoot.stopTop(), m_robotShoot));
 
     final Trigger Wrist = m_redButton.button(3);
-    Wrist.onTrue(
-        new InstantCommand(
-            () -> m_robotIntake.setSpeedWrist(-IntakeConstants.defaultSpeedWrist), m_robotIntake));
+    Wrist.onTrue(new InstantCommand(() -> m_robotIntake.setSpeedWrist(-0.1), m_robotIntake));
     Wrist.onFalse(new InstantCommand(() -> m_robotIntake.stopWrist(), m_robotIntake));
 
     final Trigger Eject = m_redButton.button(4);
