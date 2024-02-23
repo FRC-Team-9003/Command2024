@@ -152,6 +152,9 @@ public class RobotContainer {
 
     final Trigger foldUp = m_blueButton.button(3);
     foldUp.onTrue(new FoldUp(m_robotElevator, m_robotElbow, m_robotIntake));
+
+    final Trigger oneMotion = m_redButton.button(5);
+    oneMotion.onTrue(new OneMotionIntake(m_robotElevator, m_robotElbow, m_robotIntake));
   }
 
   /** private void configureDebugBindings() { */
