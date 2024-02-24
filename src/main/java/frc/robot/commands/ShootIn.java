@@ -29,7 +29,7 @@ public class ShootIn extends Command {
 
   @Override
   public boolean isFinished() {
-    return robotShooter.hasNote();
+    return !robotShooter.hasNote();
   }
 
   @Override

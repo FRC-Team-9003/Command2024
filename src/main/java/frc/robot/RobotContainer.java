@@ -109,26 +109,10 @@ public class RobotContainer {
   private void configureButtonBindings() {
 
     final Trigger shoot = m_blueButton.button(1);
-    shoot.onTrue(
-        new InstantCommand(
-            () -> {
-              m_robotShoot.setSpeedBottom(ShooterConstants.defaultSpeedBottom);
-              m_robotShoot.setSpeedTop(ShooterConstants.defaultSpeedTop);
-            },
-            m_robotShoot));
-    shoot.onFalse(
-        new InstantCommand(
-            () -> {
-              m_robotShoot.stopBottom();
-              m_robotShoot.stopTop();
-            },
-            m_robotShoot));
+    shoot.onTrue(new ShootNote(m_robotShoot));
 
     final Trigger shootIn = m_redButton.button(1);
-    shootIn.onTrue(
-        new InstantCommand(
-            () -> m_robotShoot.setSpeedTop(-ShooterConstants.defaultIn), m_robotShoot));
-    shootIn.onFalse(new InstantCommand(() -> m_robotShoot.stopTop(), m_robotShoot));
+    shootIn.onTrue(new ShootIn(m_robotShoot));
 
     BooleanSupplier wristActive = () -> m_robotElevator.getElevRev() && m_robotElbow.getElbowRev();
 
