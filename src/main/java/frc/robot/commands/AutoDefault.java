@@ -36,7 +36,7 @@ public class AutoDefault extends SequentialCommandGroup {
             config);
     trajectorySecond =
         TrajectoryGenerator.generateTrajectory(
-            List.of(new Pose2d(1, 0, new Rotation2d(0)), new Pose2d(3, 0, new Rotation2d(0))),
+            List.of(new Pose2d(0.25, 0, new Rotation2d(0)), new Pose2d(1.25, 0, new Rotation2d(0))),
             config);
 
     theta =
