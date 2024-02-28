@@ -5,12 +5,14 @@
 package frc.robot;
 
 import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.math.trajectory.TrajectoryConfig;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 // import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.*;
@@ -42,7 +44,9 @@ public class RobotContainer {
   CommandJoystick m_blueButton = new CommandJoystick(OIConstants.kMechanismBoxBluePort);
 
   // A chooser for autonomous commands
-  SendableChooser<Command> m_autoChooser = new SendableChooser<>();
+  // SendableChooser<Command> m_autoChooser = new SendableChooser<>();
+
+  private TrajectoryConfig config;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -50,11 +54,8 @@ public class RobotContainer {
     // configureDebugBindings();
     configureButtonBindings();
 
-    // Sendable Chooser for autonomous
-    // add items to chooser
-    m_autoChooser.setDefaultOption("Placeholder", new ElevMax(m_robotElevator));
-
-    SmartDashboard.putData("Auto Mode", m_autoChooser);
+    String[] autOptions = {"Shoot", "Auto Default"};
+    SmartDashboard.putStringArray("Auto List", autOptions);
 
     // Configure default commands
     m_robotDrive.setDefaultCommand(
@@ -134,6 +135,9 @@ public class RobotContainer {
     final Trigger foldUp = m_blueButton.button(3);
     foldUp.onTrue(new FoldUp(m_robotElevator, m_robotElbow, m_robotIntake));
 
+    final Trigger midElbow = m_blueButton.button(5);
+    midElbow.onTrue(new ElbowPosition(0.25, m_robotElbow));
+
     final Trigger oneMotion = m_redButton.button(5);
     oneMotion.onTrue(new OneMotionIntake(m_robotElevator, m_robotElbow, m_robotIntake));
   }
@@ -201,6 +205,13 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return m_autoChooser.getSelected();
+
+    config =
+        new TrajectoryConfig(
+            AutoConstants.kMaxSpeedMetersPerSecond,
+            AutoConstants.kMaxAccelerationMetersPerSecondSquared);
+
+    return new AutoDefault(config, m_robotDrive, m_robotShoot)
+        .andThen(() -> m_robotDrive.drive(0, 0, 0, false, false));
   }
 }

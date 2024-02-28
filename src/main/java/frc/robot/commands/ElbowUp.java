@@ -23,7 +23,9 @@ public class ElbowUp extends Command {
   public void execute() {}
 
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    elbow.stopElbow();
+  }
 
   @Override
   public boolean isFinished() {
