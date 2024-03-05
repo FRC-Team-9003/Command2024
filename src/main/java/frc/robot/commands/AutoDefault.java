@@ -57,7 +57,7 @@ public class AutoDefault extends SequentialCommandGroup {
             theta,
             m_drive::setModuleStates,
             m_drive),
-        new ShootNote(shoot),
+        new ShootNote(m_shooter),
         new SwerveControllerCommand(
             trajectorySecond,
             m_drive::getPose,

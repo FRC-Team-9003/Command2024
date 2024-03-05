@@ -168,11 +168,11 @@ public final class Constants {
 
   public static final class ElbowConstants {
     public static int NeoElbow = 51;
-    public static final double defaultSpeedElbow = 0.7;
+    public static final double defaultSpeedElbow = 0.9;
   }
 
   public static final class ElevatorConstants {
     public static final int kElevatorCanID = 20;
-    public static final double defaultSpeed = 0.4;
+    public static final double defaultSpeed = 0.5;
   }
 }
