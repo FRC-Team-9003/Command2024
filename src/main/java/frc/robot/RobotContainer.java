@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.commands.PathPlannerAuto;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.wpilibj.XboxController;
@@ -211,7 +212,6 @@ public class RobotContainer {
             AutoConstants.kMaxSpeedMetersPerSecond,
             AutoConstants.kMaxAccelerationMetersPerSecondSquared);
 
-    return new AutoDefault(config, m_robotDrive, m_robotShoot)
-        .andThen(() -> m_robotDrive.drive(0, 0, 0, false, false));
+    return new PathPlannerAuto("Score Note");
   }
 }
