@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
@@ -12,6 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -57,6 +59,14 @@ public class RobotContainer {
 
     String[] autOptions = {"Shoot", "Auto Default"};
     SmartDashboard.putStringArray("Auto List", autOptions);
+
+    // Register Named Commands
+    NamedCommands.registerCommand("WristTuck", new WristTuck(m_robotIntake));
+    NamedCommands.registerCommand(
+        "Intake Eject",
+        new InstantCommand(() -> m_robotIntake.setSpeedIntake(0.8))
+            .andThen(new WaitCommand(0.1))
+            .finallyDo(() -> m_robotIntake.stopIntake()));
 
     // Configure default commands
     m_robotDrive.setDefaultCommand(
