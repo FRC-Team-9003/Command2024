@@ -9,7 +9,6 @@ import com.pathplanner.lib.commands.PathPlannerAuto;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
@@ -56,9 +55,6 @@ public class RobotContainer {
     // Configure the button bindings
     // configureDebugBindings();
     configureButtonBindings();
-
-    String[] autOptions = {"Shoot", "Auto Default"};
-    SmartDashboard.putStringArray("Auto List", autOptions);
 
     // Register Named Commands
     NamedCommands.registerCommand("WristTuck", new WristTuck(m_robotIntake));
@@ -222,6 +218,6 @@ public class RobotContainer {
             AutoConstants.kMaxSpeedMetersPerSecond,
             AutoConstants.kMaxAccelerationMetersPerSecondSquared);
 
-    return new PathPlannerAuto("Score Note");
+    return new PathPlannerAuto("Note");
   }
 }
