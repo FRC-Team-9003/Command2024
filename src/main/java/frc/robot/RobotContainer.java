@@ -8,7 +8,6 @@ import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
@@ -57,12 +56,15 @@ public class RobotContainer {
     configureButtonBindings();
 
     // Register Named Commands
-    NamedCommands.registerCommand("WristTuck", new WristTuck(m_robotIntake));
+    NamedCommands.registerCommand("Wrist Tuck", new WristTuck(m_robotIntake));
     NamedCommands.registerCommand(
         "Intake Eject",
         new InstantCommand(() -> m_robotIntake.setSpeedIntake(0.8))
             .andThen(new WaitCommand(0.1))
             .finallyDo(() -> m_robotIntake.stopIntake()));
+    NamedCommands.registerCommand(
+        "Wrist Down",
+        new WristPosition(0.25, m_robotIntake).finallyDo(() -> m_robotIntake.stopWrist()));
 
     // Configure default commands
     m_robotDrive.setDefaultCommand(
@@ -212,12 +214,19 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-
     config =
         new TrajectoryConfig(
             AutoConstants.kMaxSpeedMetersPerSecond,
             AutoConstants.kMaxAccelerationMetersPerSecondSquared);
 
-    return new PathPlannerAuto("Note");
+    if (!m_robotIntake.isNote()) {
+      return new PathPlannerAuto("Score Note");
+    } else if (!m_robotShoot.hasNote()) {
+      return new AutoDefault(config, m_robotDrive, m_robotShoot)
+          .andThen(() -> m_robotDrive.drive(0, 0, 0, false, false));
+    }
+
+    return new LeaveZone(config, m_robotDrive, m_robotShoot)
+        .andThen(() -> m_robotDrive.drive(0, 0, 0, false, false));
   }
 }

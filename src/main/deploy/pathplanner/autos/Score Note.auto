@@ -12,15 +12,15 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "Amp"
+            "name": "Wrist Tuck"
           }
         },
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "Intake Eject"
+            "pathName": "Amp"
           }
         }
       ]
