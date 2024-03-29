@@ -15,7 +15,6 @@ import java.util.List;
 
 public class LeaveZone extends SequentialCommandGroup {
 
-  private Shooter m_shooter;
   private DriveSubsystem m_drive;
 
   private TrajectoryConfig config;
@@ -24,9 +23,8 @@ public class LeaveZone extends SequentialCommandGroup {
   private PIDController xCont;
   private PIDController yCont;
 
-  public LeaveZone(TrajectoryConfig configure, DriveSubsystem drive, Shooter shoot) {
+  public LeaveZone(TrajectoryConfig configure, DriveSubsystem drive) {
     m_drive = drive;
-    m_shooter = shoot;
     config = configure;
 
     trajectoryLeave =

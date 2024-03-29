@@ -226,7 +226,7 @@ public class RobotContainer {
           .andThen(() -> m_robotDrive.drive(0, 0, 0, false, false));
     }
 
-    return new LeaveZone(config, m_robotDrive, m_robotShoot)
+    return new LeaveZone(config, m_robotDrive)
         .andThen(() -> m_robotDrive.drive(0, 0, 0, false, false));
   }
 }
