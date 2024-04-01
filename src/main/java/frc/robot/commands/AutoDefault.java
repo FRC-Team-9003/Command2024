@@ -47,6 +47,8 @@ public class AutoDefault extends SequentialCommandGroup {
     xCont = new PIDController(AutoConstants.kPXController, 0, 0);
     yCont = new PIDController(AutoConstants.kPYController, 0, 0);
 
+    m_drive.resetOdometry(new Pose2d());
+
     addCommands(
         new SwerveControllerCommand(
             trajectoryFirst,
