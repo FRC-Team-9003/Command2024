@@ -49,7 +49,7 @@ public class ShuffleboardSetup extends Command {
             .withSize(2, 2)
             .withProperties(Map.of("Label Position", "HIDDEN"));
 
-    elevSensors.addDouble("Elevator Encoder", elev::getElevEncoder);
+    // elevSensors.addDouble("Elevator Encoder", elev::getElevEncoder);
 
     intakeSensors.addDouble("Wrist Encoder", intake::getWristEncoder);
 

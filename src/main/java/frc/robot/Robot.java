@@ -5,10 +5,11 @@
 package frc.robot;
 
 import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.ShuffleboardSetup;
+import org.littletonrobotics.urcl.URCL;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -20,7 +21,7 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
-  private ShuffleboardSetup setup;
+  // private ShuffleboardSetup setup;
 
   NetworkTable table;
 
@@ -35,11 +36,14 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
 
-    setup =
-        new ShuffleboardSetup(
-            m_robotContainer.m_robotElevator,
-            m_robotContainer.m_robotElbow,
-            m_robotContainer.m_robotIntake);
+    /*setup =
+    new ShuffleboardSetup(
+        m_robotContainer.m_robotElevator,
+        m_robotContainer.m_robotElbow,
+        m_robotContainer.m_robotIntake); */
+
+    DataLogManager.start();
+    URCL.start();
   }
 
   /**
@@ -101,6 +105,11 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {}
+
+  @Override
+  public void teleopExit() {
+    DataLogManager.stop();
+  }
 
   @Override
   public void testInit() {

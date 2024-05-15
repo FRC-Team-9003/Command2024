@@ -7,16 +7,16 @@ package frc.robot;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-// import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.Constants.*;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
@@ -39,8 +39,8 @@ public class RobotContainer {
 
   // The driver's controller
   CommandJoystick m_stickDrive = new CommandJoystick(OIConstants.kDriverControllerPort);
-  // CommandXboxController m_debugController =
-  //    new CommandXboxController(OIConstants.kDebugControllerPort);
+  CommandXboxController m_debugController =
+      new CommandXboxController(OIConstants.kDebugControllerPort);
 
   CommandJoystick m_redButton = new CommandJoystick(OIConstants.kMechanismBoxRedPort);
   CommandJoystick m_blueButton = new CommandJoystick(OIConstants.kMechanismBoxBluePort);
@@ -55,6 +55,7 @@ public class RobotContainer {
     // Configure the button bindings
     // configureDebugBindings();
     configureButtonBindings();
+    configureIdButtons();
 
     // Register Named Commands
     NamedCommands.registerCommand("Wrist Tuck", new WristTuck(m_robotIntake));
@@ -150,6 +151,28 @@ public class RobotContainer {
 
     final Trigger oneMotion = m_redButton.button(5);
     oneMotion.onTrue(new OneMotionIntake(m_robotElevator, m_robotElbow, m_robotIntake));
+  }
+
+  private void configureIdButtons() {
+    final Trigger dynamicUp = m_debugController.y();
+    dynamicUp
+        .whileTrue(m_robotElevator.sysIdDynamic(Direction.kForward))
+        .and(m_robotElevator::getElevFwd);
+
+    final Trigger dynamicDown = m_debugController.a();
+    dynamicDown
+        .whileTrue(m_robotElevator.sysIdDynamic(Direction.kReverse))
+        .and(m_robotElevator::getElevRev);
+
+    final Trigger quasiUp = m_debugController.x();
+    quasiUp
+        .whileTrue(m_robotElevator.sysIdQuasistatic(Direction.kReverse))
+        .and(m_robotElevator::getElevRev);
+
+    final Trigger quasiDown = m_debugController.b();
+    quasiDown
+        .whileTrue(m_robotElevator.sysIdQuasistatic(Direction.kForward))
+        .and(m_robotElevator::getElevFwd);
   }
 
   /** private void configureDebugBindings() { */

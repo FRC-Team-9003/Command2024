@@ -134,7 +134,7 @@ public final class Constants {
     public static final int kDriverControllerPort = 0;
     public static final int kMechanismBoxBluePort = 1;
     public static final int kMechanismBoxRedPort = 2;
-    public static final int kDebugControllerPort = 1;
+    public static final int kDebugControllerPort = 3;
     public static final double kDriveDeadband = 0.05;
   }
 
@@ -188,5 +188,13 @@ public final class Constants {
   public static final class ElevatorConstants {
     public static final int kElevatorCanID = 20;
     public static final double defaultSpeed = 0.5;
+
+    public static final double kP = 0.0;
+    public static final double kI = 0.0;
+    public static final double kD = 0.0;
+    public static final double kIz = 0.0;
+    public static final double kFF = 0.0;
+    public static final double kMaxOutput = 0.5;
+    public static final double kMinOutput = -0.5;
   }
 }
