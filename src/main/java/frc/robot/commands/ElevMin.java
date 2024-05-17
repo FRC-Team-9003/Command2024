@@ -23,6 +23,7 @@ public class ElevMin extends Command {
   @Override
   public void end(boolean interrupted) {
     m_Elevator.stop();
+    m_Elevator.setState(ElevatorConstants.ElevState.Down);
   }
 
   @Override

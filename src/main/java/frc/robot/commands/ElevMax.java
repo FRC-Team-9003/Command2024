@@ -23,6 +23,7 @@ public class ElevMax extends Command {
   @Override
   public void end(boolean interrupted) {
     m_Elevator.stop();
+    m_Elevator.setState(ElevatorConstants.ElevState.Up);
   }
 
   @Override

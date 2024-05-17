@@ -188,5 +188,20 @@ public final class Constants {
   public static final class ElevatorConstants {
     public static final int kElevatorCanID = 20;
     public static final double defaultSpeed = 0.5;
+
+    // PID coefficients
+    public static final double kP = 1.591e-4;
+    public static final double kI = 0.0; // 0.2e-9;
+    public static final double kD = 0.0; // 1.531e-4;
+    public static final double kIz = 0;
+    public static final double kFF = 1e-5;
+    public static final double kMaxOutput = 0.6;
+    public static final double kMinOutput = -0.6;
+
+    public enum ElevState {
+      Up,
+      Down,
+      Transition
+    };
   }
 }
