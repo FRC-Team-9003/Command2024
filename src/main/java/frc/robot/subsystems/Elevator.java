@@ -1,15 +1,13 @@
 package frc.robot.subsystems;
 
+import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkAbsoluteEncoder;
 import com.revrobotics.SparkAbsoluteEncoder.Type;
 import com.revrobotics.SparkLimitSwitch;
-import com.revrobotics.CANSparkBase.IdleMode;
-
 import edu.wpi.first.units.Measure;
 import edu.wpi.first.units.Units;
-import edu.wpi.first.units.Velocity;
 import edu.wpi.first.units.Voltage;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -24,7 +22,6 @@ public class Elevator extends SubsystemBase {
   private SparkLimitSwitch elevRev;
 
   // private final SparkPIDController elevController;
-
 
   private static final double ENCODER_OFFSET = 0.01;
   private static final double LIMIT_BOTTOM = 0.00;
@@ -45,7 +42,7 @@ public class Elevator extends SubsystemBase {
     elevEncoder = elev.getAbsoluteEncoder(Type.kDutyCycle);
     elevFwd = elev.getForwardLimitSwitch(SparkLimitSwitch.Type.kNormallyClosed);
     elevRev = elev.getReverseLimitSwitch(SparkLimitSwitch.Type.kNormallyClosed);
-    
+
     elev.setIdleMode(IdleMode.kBrake);
     elev.burnFlash();
 
@@ -61,9 +58,7 @@ public class Elevator extends SubsystemBase {
   }
 
   @Override
-  public void periodic() {
-
-  }
+  public void periodic() {}
 
   @Override
   public void simulationPeriodic() {}

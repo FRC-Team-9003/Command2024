@@ -156,23 +156,23 @@ public class RobotContainer {
   private void configureIdButtons() {
     final Trigger dynamicUp = m_debugController.y();
     dynamicUp
-        .whileTrue(m_robotElevator.sysIdDynamic(Direction.kForward))
-        .and(m_robotElevator::getElevFwd);
+        .whileTrue(m_robotIntake.sysIdDynamic(Direction.kForward))
+        .and(m_robotIntake::getWristFwd);
 
     final Trigger dynamicDown = m_debugController.a();
     dynamicDown
-        .whileTrue(m_robotElevator.sysIdDynamic(Direction.kReverse))
-        .and(m_robotElevator::getElevRev);
+        .whileTrue(m_robotIntake.sysIdDynamic(Direction.kReverse))
+        .and(m_robotIntake::getWristRev);
 
     final Trigger quasiUp = m_debugController.x();
     quasiUp
-        .whileTrue(m_robotElevator.sysIdQuasistatic(Direction.kReverse))
-        .and(m_robotElevator::getElevRev);
+        .whileTrue(m_robotIntake.sysIdQuasistatic(Direction.kReverse))
+        .and(m_robotIntake::getWristRev);
 
     final Trigger quasiDown = m_debugController.b();
     quasiDown
-        .whileTrue(m_robotElevator.sysIdQuasistatic(Direction.kForward))
-        .and(m_robotElevator::getElevFwd);
+        .whileTrue(m_robotIntake.sysIdQuasistatic(Direction.kForward))
+        .and(m_robotIntake::getWristFwd);
   }
 
   /** private void configureDebugBindings() { */

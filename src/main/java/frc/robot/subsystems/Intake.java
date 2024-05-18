@@ -5,8 +5,13 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkAbsoluteEncoder;
 import com.revrobotics.SparkAbsoluteEncoder.Type;
 import com.revrobotics.SparkLimitSwitch;
+import edu.wpi.first.units.Measure;
+import edu.wpi.first.units.Units;
+import edu.wpi.first.units.Voltage;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.Constants.IntakeConstants;
 
 public class Intake extends SubsystemBase {
@@ -19,6 +24,8 @@ public class Intake extends SubsystemBase {
 
   private DigitalInput intakeSwitch;
 
+  private SysIdRoutine idRoutine;
+
   public Intake() {
     intake = new CANSparkMax(IntakeConstants.Neo550Intake, MotorType.kBrushless);
     intakeSwitch = new DigitalInput(1);
@@ -30,6 +37,12 @@ public class Intake extends SubsystemBase {
 
     wristFwd = wrist.getForwardLimitSwitch(SparkLimitSwitch.Type.kNormallyClosed);
     wristRev = wrist.getReverseLimitSwitch(SparkLimitSwitch.Type.kNormallyClosed);
+
+    idRoutine =
+        new SysIdRoutine(
+            new SysIdRoutine.Config(),
+            new SysIdRoutine.Mechanism(
+                (Measure<Voltage> volts) -> intake.setVoltage(volts.in(Units.Volts)), null, this));
   }
 
   @Override
@@ -68,5 +81,13 @@ public class Intake extends SubsystemBase {
 
   public boolean isNote() {
     return intakeSwitch.get();
+  }
+
+  public Command sysIdQuasistatic(SysIdRoutine.Direction direction) {
+    return idRoutine.quasistatic(direction);
+  }
+
+  public Command sysIdDynamic(SysIdRoutine.Direction direction) {
+    return idRoutine.dynamic(direction);
   }
 }
