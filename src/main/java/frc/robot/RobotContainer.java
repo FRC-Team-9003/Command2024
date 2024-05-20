@@ -13,9 +13,9 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-// import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.*;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
@@ -38,8 +38,8 @@ public class RobotContainer {
 
   // The driver's controller
   CommandJoystick m_stickDrive = new CommandJoystick(OIConstants.kDriverControllerPort);
-  // CommandXboxController m_debugController =
-  //    new CommandXboxController(OIConstants.kDebugControllerPort);
+  CommandXboxController m_debugController =
+      new CommandXboxController(OIConstants.kDebugControllerPort);
 
   CommandJoystick m_redButton = new CommandJoystick(OIConstants.kMechanismBoxRedPort);
   CommandJoystick m_blueButton = new CommandJoystick(OIConstants.kMechanismBoxBluePort);
@@ -90,10 +90,9 @@ public class RobotContainer {
             },
             m_robotClimb));
 
-    /*
-     * The code for testing elbow and wrist movement.
-     *
-     *     m_robotIntake.setDefaultCommand(
+    // The code for testing elbow and wrist movement.
+
+    m_robotIntake.setDefaultCommand(
         new RunCommand(
             () -> {
               m_robotIntake.setSpeedWrist(m_debugController.getLeftY() / 4);
@@ -103,8 +102,6 @@ public class RobotContainer {
     m_robotElbow.setDefaultCommand(
         new RunCommand(
             () -> m_robotElbow.setSpeedElbow(m_debugController.getRightY() / 2), m_robotElbow));
-     *
-     */
 
     // Create default command for climbers.
 

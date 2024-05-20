@@ -134,7 +134,7 @@ public final class Constants {
     public static final int kDriverControllerPort = 0;
     public static final int kMechanismBoxBluePort = 1;
     public static final int kMechanismBoxRedPort = 2;
-    public static final int kDebugControllerPort = 1;
+    public static final int kDebugControllerPort = 3;
     public static final double kDriveDeadband = 0.05;
   }
 
