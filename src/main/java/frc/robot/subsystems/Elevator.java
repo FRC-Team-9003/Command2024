@@ -10,6 +10,7 @@ import com.revrobotics.CANSparkBase.ControlType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ElevatorConstants;
+import frc.robot.commands.ElevMax;
 
 public class Elevator extends SubsystemBase {
 
@@ -46,9 +47,7 @@ public class Elevator extends SubsystemBase {
   @Override
   public void periodic() {
     if (state.equals(ElevatorConstants.ElevState.Up) && !this.getElevRev()){
-      double newFF = controller.getFF()+(top-this.getElevEncoder()/travel_dist);
-      controller.setFF(newFF);
-      controller.setReference(top, ControlType.kPosition);
+      new ElevMax(this);
     }
   }
 
