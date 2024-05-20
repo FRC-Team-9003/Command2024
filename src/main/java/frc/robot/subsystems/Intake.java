@@ -26,6 +26,11 @@ public class Intake extends SubsystemBase {
 
   private SysIdRoutine idRoutine;
 
+  // Constants to change the SysID config to be safer for the mechanism.
+  // final Measure<Velocity<Voltage>> rate = Units.Volts.per(Units.Seconds).of(0.75);
+  // final Measure<Voltage> step = Units.Volts.of(5.0);
+  // final Measure<Time> timeout = Units.Seconds.of(1.0);
+
   public Intake() {
     intake = new CANSparkMax(IntakeConstants.Neo550Intake, MotorType.kBrushless);
     intakeSwitch = new DigitalInput(1);
@@ -42,7 +47,7 @@ public class Intake extends SubsystemBase {
         new SysIdRoutine(
             new SysIdRoutine.Config(),
             new SysIdRoutine.Mechanism(
-                (Measure<Voltage> volts) -> intake.setVoltage(volts.in(Units.Volts)), null, this));
+                (Measure<Voltage> volts) -> wrist.setVoltage(volts.in(Units.Volts)), null, this));
   }
 
   @Override
