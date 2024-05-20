@@ -6,11 +6,8 @@ import com.revrobotics.SparkAbsoluteEncoder;
 import com.revrobotics.SparkAbsoluteEncoder.Type;
 import com.revrobotics.SparkLimitSwitch;
 import com.revrobotics.SparkPIDController;
-import com.revrobotics.CANSparkBase.ControlType;
-
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ElevatorConstants;
-import frc.robot.commands.ElevMax;
 
 public class Elevator extends SubsystemBase {
 
@@ -45,11 +42,7 @@ public class Elevator extends SubsystemBase {
   }
 
   @Override
-  public void periodic() {
-    if (state.equals(ElevatorConstants.ElevState.Up) && !this.getElevRev()){
-      new ElevMax(this);
-    }
-  }
+  public void periodic() {}
 
   @Override
   public void simulationPeriodic() {}
