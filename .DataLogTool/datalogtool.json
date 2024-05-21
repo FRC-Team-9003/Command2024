@@ -1,1 +1,7 @@
-{}
+{
+  "download": {
+    "deleteAfter": false,
+    "localDir": "/Users/ericebert/Documents/Robotics",
+    "serverTeam": "10.90.3.2"
+  }
+}

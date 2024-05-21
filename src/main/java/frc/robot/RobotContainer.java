@@ -146,6 +146,14 @@ public class RobotContainer {
 
     final Trigger oneMotion = m_redButton.button(5);
     oneMotion.onTrue(new OneMotionIntake(m_robotElevator, m_robotElbow, m_robotIntake));
+
+    BooleanSupplier elevatorSlip =
+        () ->
+            m_robotElevator.getState().equals(ElevatorConstants.ElevState.Up)
+                && !m_robotElevator.getElevRev();
+
+    final Trigger returnToTop = new Trigger(elevatorSlip);
+    returnToTop.onTrue(new ElevMax(m_robotElevator));
   }
 
   /** private void configureDebugBindings() { */

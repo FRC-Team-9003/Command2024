@@ -72,4 +72,8 @@ public class Elevator extends SubsystemBase {
   public void setState(ElevatorConstants.ElevState update) {
     state = update;
   }
+
+  public ElevatorConstants.ElevState getState() {
+    return state;
+  }
 }
