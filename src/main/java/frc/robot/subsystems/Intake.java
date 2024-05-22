@@ -6,7 +6,9 @@ import com.revrobotics.SparkAbsoluteEncoder;
 import com.revrobotics.SparkAbsoluteEncoder.Type;
 import com.revrobotics.SparkLimitSwitch;
 import edu.wpi.first.units.Measure;
+import edu.wpi.first.units.Time;
 import edu.wpi.first.units.Units;
+import edu.wpi.first.units.Velocity;
 import edu.wpi.first.units.Voltage;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -27,9 +29,9 @@ public class Intake extends SubsystemBase {
   private SysIdRoutine idRoutine;
 
   // Constants to change the SysID config to be safer for the mechanism.
-  // final Measure<Velocity<Voltage>> rate = Units.Volts.per(Units.Seconds).of(0.75);
-  // final Measure<Voltage> step = Units.Volts.of(5.0);
-  // final Measure<Time> timeout = Units.Seconds.of(1.0);
+  final Measure<Velocity<Voltage>> rate = Units.Volts.per(Units.Seconds).of(0.75);
+  final Measure<Voltage> step = Units.Volts.of(1.0);
+  final Measure<Time> timeout = Units.Seconds.of(3.0);
 
   public Intake() {
     intake = new CANSparkMax(IntakeConstants.Neo550Intake, MotorType.kBrushless);
@@ -45,7 +47,7 @@ public class Intake extends SubsystemBase {
 
     idRoutine =
         new SysIdRoutine(
-            new SysIdRoutine.Config(),
+            new SysIdRoutine.Config(rate, step, timeout),
             new SysIdRoutine.Mechanism(
                 (Measure<Voltage> volts) -> wrist.setVoltage(volts.in(Units.Volts)), null, this));
   }
