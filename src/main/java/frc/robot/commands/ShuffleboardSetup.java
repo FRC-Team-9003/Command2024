@@ -62,6 +62,7 @@ public class ShuffleboardSetup extends Command {
 
     commandsTab.add(new FoldUp(elev, elbow, intake));
     commandsTab.add(new FoldDown(elev, elbow, intake));
+    commandsTab.add(new WristDefault(intake));
     commandsTab.add(new WristTuck(intake));
     commandsTab.add(new WristPosition(0.05, intake));
     commandsTab.add(new ElbowPosition(0.05, elbow));

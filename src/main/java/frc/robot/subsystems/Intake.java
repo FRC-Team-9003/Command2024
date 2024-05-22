@@ -1,12 +1,14 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.AbsoluteEncoder;
+import com.revrobotics.CANSparkBase.ControlType;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkAbsoluteEncoder.Type;
 import com.revrobotics.SparkLimitSwitch;
 import com.revrobotics.SparkPIDController;
+import com.revrobotics.SparkPIDController.ArbFFUnits;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -25,6 +27,9 @@ public class Intake extends SubsystemBase {
   private DigitalInput intakeSwitch;
 
   private SimpleMotorFeedforward ffWrist;
+  private final double GRAVITY_FF = -0.20403;
+
+  private Double target = null;
 
   public Intake() {
     intake = new CANSparkMax(IntakeConstants.Neo550Intake, MotorType.kBrushless);
@@ -43,7 +48,6 @@ public class Intake extends SubsystemBase {
     wristController.setP(6.3078e-6);
     wristController.setD(0.55842);
     wristController.setFF(ffWrist.calculate(0.0));
-    wristController.setI(1.2e-5);
 
     wristFwd = wrist.getForwardLimitSwitch(SparkLimitSwitch.Type.kNormallyClosed);
     wristRev = wrist.getReverseLimitSwitch(SparkLimitSwitch.Type.kNormallyClosed);
@@ -53,6 +57,16 @@ public class Intake extends SubsystemBase {
   public void periodic() {
     if (internalWrist.getVelocity() > 0) {
       wristController.setFF(ffWrist.calculate(internalWrist.getVelocity()));
+    }
+    if (target != null) {
+      double cosineScalar = Math.cos(getWristPosition());
+      double feedForward = GRAVITY_FF * cosineScalar;
+      wristController.setReference(
+          radiansToEncoderRotations(target),
+          ControlType.kSmartMotion,
+          0,
+          feedForward,
+          ArbFFUnits.kPercentOut);
     }
   }
 
@@ -72,6 +86,7 @@ public class Intake extends SubsystemBase {
   }
 
   public void setSpeedWrist(double speed) {
+    target = null;
     wrist.set(speed);
   }
 
@@ -89,5 +104,17 @@ public class Intake extends SubsystemBase {
 
   public boolean isNote() {
     return intakeSwitch.get();
+  }
+
+  public void setPosition(double radians) {
+    target = radians;
+  }
+
+  public double getWristPosition() {
+    return edu.wpi.first.math.util.Units.rotationsToRadians(wristEncoder.getPosition());
+  }
+
+  public static double radiansToEncoderRotations(double rads) {
+    return edu.wpi.first.math.util.Units.radiansToRotations(rads);
   }
 }

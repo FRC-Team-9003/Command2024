@@ -154,6 +154,9 @@ public class RobotContainer {
 
     final Trigger returnToTop = new Trigger(elevatorSlip);
     returnToTop.onTrue(new ElevMax(m_robotElevator));
+
+    final Trigger lBumper = m_debugController.leftBumper();
+    lBumper.onTrue(new WristDefault(m_robotIntake).withTimeout(0.25));
   }
 
   /** private void configureDebugBindings() { */
