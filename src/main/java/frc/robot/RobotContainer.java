@@ -90,7 +90,7 @@ public class RobotContainer {
             },
             m_robotClimb));
 
-    // The code for testing elbow and wrist movement.
+    /* // The code for testing elbow and wrist movement.
 
     m_robotIntake.setDefaultCommand(
         new RunCommand(
@@ -101,9 +101,7 @@ public class RobotContainer {
 
     m_robotElbow.setDefaultCommand(
         new RunCommand(
-            () -> m_robotElbow.setSpeedElbow(m_debugController.getRightY() / 2), m_robotElbow));
-
-    // Create default command for climbers.
+            () -> m_robotElbow.setSpeedElbow(m_debugController.getRightY() / 2), m_robotElbow)); */
 
   }
 
@@ -154,9 +152,6 @@ public class RobotContainer {
 
     final Trigger returnToTop = new Trigger(elevatorSlip);
     returnToTop.onTrue(new ElevMax(m_robotElevator));
-
-    final Trigger lBumper = m_debugController.leftBumper();
-    lBumper.onTrue(new WristDefault(m_robotIntake).withTimeout(0.25));
   }
 
   /** private void configureDebugBindings() { */
